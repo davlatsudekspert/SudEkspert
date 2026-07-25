@@ -1,44 +1,27 @@
 import { useState, useRef, useEffect } from "react";
+import { loadNews, saveNews } from "../data/newsStore";
 
-const initialNews = [
-  {
-    id: 1,
-    title: "Filialda o'quv-seminar bo'lib o'tdi",
-    desc: "Sud-tibbiy ekspertiza sohasidagi yangi yondashuv va usullar muhokama qilindi.",
-    full: "Filial xodimlari uchun tashkil etilgan o'quv-seminarda sud-tibbiy ekspertiza sohasidagi zamonaviy yondashuvlar, xalqaro tajriba va yangi tadqiqot usullari muhokama qilindi. Tadbirda yetakchi mutaxassislar ma'ruza qilib, amaliy mashg'ulotlar o'tkazdi.",
-    date: "2024-yil 24-may",
-    image: "https://picsum.photos/seed/seminar24/700/450",
-  },
-  {
-    id: 2,
-    title: "Yangi laborator uskunalar foydalanishga topshirildi",
-    desc: "Zamonaviy uskunalar yordamida ekspertiza sifatini yanada oshirish maqsad qilingan.",
-    full: "Filial laboratoriyasiga zamonaviy tadqiqot uskunalari o'rnatildi. Yangi uskunalar molekulyar-genetik va biokimyoviy tekshiruvlar sifatini oshirish, natijalarni tezroq va aniqroq olish imkonini beradi.",
-    date: "2024-yil 20-may",
-    image: "https://picsum.photos/seed/lab20/700/450",
-  },
-  {
-    id: 3,
-    title: "Aholi uchun ochiq eshiklar kuni",
-    desc: "Fuqarolar bilan ochiq muloqot va tushuntirish ishlari o'tkazildi.",
-    full: "Filialda aholi uchun ochiq eshiklar kuni tashkil etildi. Fuqarolar sud-tibbiy ekspertiza xizmatlari, ekspertiza tayinlash tartibi va zarur hujjatlar bo'yicha savollariga javob oldilar.",
-    date: "2024-yil 15-may",
-    image: "https://picsum.photos/seed/openday15/700/450",
-  },
-];
-
-const STORAGE_KEY = "andijon-sud-ekspertiza-news";
 const MAX_IMAGE_MB = 5;
 
+// ESLATMA: bu tekshiruv faqat oddiy foydalanuvchini to'xtatish uchun —
+// HAQIQIY xavfsizlik emas. Qiymat hash qilingan (ochiq matnda emas) va
+// urinishlar cheklangan, lekin baribir bu client-side (brauzer) tekshiruvi —
+// u faqat shu UI tugmasini qulflaydi, ma'lumotlarni emas. Chinakam himoya
+// uchun serverli (backend) autentifikatsiya kerak.
+const ALI_HASH = "7d2cd1ce8ba19614bdd30e5f09c9277e6b01e1e4fd4a715367e4e65955623248";
+const MAX_ATTEMPTS = 3;
+const LOCKOUT_MS = 30000;
+
+async function digest(text) {
+  const data = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 export default function Yangiliklar() {
-  const [news, setNews] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : initialNews;
-    } catch {
-      return initialNews;
-    }
-  });
+  const [news, setNews] = useState(() => loadNews());
   const [selected, setSelected] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [toast, setToast] = useState(null);
@@ -47,6 +30,7 @@ export default function Yangiliklar() {
   const dialogRef = useRef(null);
   const addDialogRef = useRef(null);
   const deleteDialogRef = useRef(null);
+  const aliDialogRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const [title, setTitle] = useState("");
@@ -55,12 +39,15 @@ export default function Yangiliklar() {
   const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
 
+  const [aliValue, setAliValue] = useState("");
+  const [aliError, setAliError] = useState("");
+  const [aliAction, setAliAction] = useState(null); // "add" | "delete"
+  const [aliAttempts, setAliAttempts] = useState(0);
+  const [aliLockedUntil, setAliLockedUntil] = useState(null);
+  const [aliChecking, setAliChecking] = useState(false);
+
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(news));
-    } catch {
-      // localStorage to'la bo'lishi mumkin, e'tiborsiz qoldiramiz
-    }
+    saveNews(news);
   }, [news]);
 
   useEffect(() => {
@@ -82,9 +69,50 @@ export default function Yangiliklar() {
     setErrors({});
   };
 
-  const openAddModal = () => {
-    resetForm();
-    addDialogRef.current?.showModal();
+  const openAliGate = (action) => {
+    setAliAction(action);
+    setAliValue("");
+    setAliError("");
+    aliDialogRef.current?.showModal();
+  };
+
+  const handleAliSubmit = async (e) => {
+    e.preventDefault();
+
+    if (aliLockedUntil && Date.now() < aliLockedUntil) {
+      const secondsLeft = Math.ceil((aliLockedUntil - Date.now()) / 1000);
+      setAliError(`Juda ko'p urinish. ${secondsLeft} soniyadan so'ng qayta urining`);
+      return;
+    }
+
+    setAliChecking(true);
+    const enteredHash = await digest(aliValue);
+    setAliChecking(false);
+
+    if (enteredHash === ALI_HASH) {
+      setAliAttempts(0);
+      setAliLockedUntil(null);
+      aliDialogRef.current?.close();
+      if (aliAction === "add") {
+        resetForm();
+        addDialogRef.current?.showModal();
+      } else if (aliAction === "delete") {
+        deleteDialogRef.current?.showModal();
+      }
+      setAliValue("");
+      setAliError("");
+    } else {
+      const nextAttempts = aliAttempts + 1;
+      setAliAttempts(nextAttempts);
+      setAliValue("");
+      if (nextAttempts >= MAX_ATTEMPTS) {
+        setAliLockedUntil(Date.now() + LOCKOUT_MS);
+        setAliAttempts(0);
+        setAliError(`Noto'g'ri PIN kod. ${LOCKOUT_MS / 1000} soniyaga bloklandi`);
+      } else {
+        setAliError(`Noto'g'ri PIN kod (${nextAttempts}/${MAX_ATTEMPTS})`);
+      }
+    }
   };
 
   const processFile = (file) => {
@@ -140,7 +168,7 @@ export default function Yangiliklar() {
 
   const askDelete = (item) => {
     setDeleteTarget(item);
-    deleteDialogRef.current?.showModal();
+    openAliGate("delete");
   };
 
   const confirmDelete = () => {
@@ -158,7 +186,7 @@ export default function Yangiliklar() {
           <p className="text-sm text-gray-400 mt-1">{news.length} ta yangilik</p>
         </div>
         <button
-          onClick={openAddModal}
+          onClick={() => openAliGate("add")}
           className="flex items-center gap-2 bg-[#13285A] text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:opacity-90 active:scale-95 transition"
         >
           <i className="fa-solid fa-plus"></i>
@@ -171,7 +199,7 @@ export default function Yangiliklar() {
           <i className="fa-regular fa-newspaper text-4xl text-gray-300 mb-4"></i>
           <p className="text-gray-500 mb-4">Hozircha yangiliklar mavjud emas</p>
           <button
-            onClick={openAddModal}
+            onClick={() => openAliGate("add")}
             className="text-sm font-semibold text-[#13285A] hover:underline"
           >
             Birinchi yangilikni qo'shing
@@ -222,6 +250,48 @@ export default function Yangiliklar() {
               </div>
             </>
           )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      <dialog ref={aliDialogRef} className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box max-w-sm">
+          <h3 className="text-lg font-bold text-[#13285A] mb-1">
+            <i className="fa-solid fa-lock mr-2"></i>PIN kod
+          </h3>
+          <p className="text-sm text-gray-500 mb-4">
+            {aliAction === "delete" ? "Yangilikni o'chirish uchun" : "Yangilik qo'shish uchun"} PIN kod kiriting.
+          </p>
+          <form onSubmit={handleAliSubmit} className="flex flex-col gap-3">
+            <input
+              type="password"
+              inputMode="numeric"
+              placeholder="PIN kod"
+              value={aliValue}
+              onChange={(e) => setAliValue(e.target.value)}
+              autoFocus
+              className={`input input-bordered w-full tracking-widest text-center ${aliError ? "input-error" : ""}`}
+            />
+            {aliError && <p className="text-xs text-red-500 text-center">{aliError}</p>}
+            <div className="modal-action mt-0">
+              <button
+                type="button"
+                onClick={() => aliDialogRef.current?.close()}
+                className="btn btn-ghost"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="submit"
+                disabled={aliChecking}
+                className="bg-[#13285A] text-white rounded-lg px-5 py-2.5 text-sm font-semibold hover:opacity-90 active:scale-95 transition disabled:opacity-50"
+              >
+                {aliChecking ? "Tekshirilmoqda..." : "Tasdiqlash"}
+              </button>
+            </div>
+          </form>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>

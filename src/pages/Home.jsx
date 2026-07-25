@@ -1,32 +1,10 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import buildingImg from "../assets/building.jpg";
-
-const news = [
-  {
-    title: "Filialda o'quv-seminar bo'lib o'tdi",
-    desc: "Sud-tibbiy ekspertiza sohasidagi yangi yondashuv va usullar muhokama qilindi.",
-    full: "Filial xodimlari uchun tashkil etilgan o'quv-seminarda sud-tibbiy ekspertiza sohasidagi zamonaviy yondashuvlar, xalqaro tajriba va yangi tadqiqot usullari muhokama qilindi. Tadbirda yetakchi mutaxassislar ma'ruza qilib, amaliy mashg'ulotlar o'tkazdi.",
-    date: "2024-yil 24-may",
-    image: "https://picsum.photos/seed/seminar24/700/450",
-  },
-  {
-    title: "Yangi laborator uskunalar foydalanishga topshirildi",
-    desc: "Zamonaviy uskunalar yordamida ekspertiza sifatini yanada oshirish maqsad qilingan.",
-    full: "Filial laboratoriyasiga zamonaviy tadqiqot uskunalari o'rnatildi. Yangi uskunalar molekulyar-genetik va biokimyoviy tekshiruvlar sifatini oshirish, natijalarni tezroq va aniqroq olish imkonini beradi.",
-    date: "2024-yil 20-may",
-    image: "https://picsum.photos/seed/lab20/700/450",
-  },
-  {
-    title: "Aholi uchun ochiq eshiklar kuni",
-    desc: "Fuqarolar bilan ochiq muloqot va tushuntirish ishlari o'tkazildi.",
-    full: "Filialda aholi uchun ochiq eshiklar kuni tashkil etildi. Fuqarolar sud-tibbiy ekspertiza xizmatlari, ekspertiza tayinlash tartibi va zarur hujjatlar bo'yicha savollariga javob oldilar.",
-    date: "2024-yil 15-may",
-    image: "https://picsum.photos/seed/openday15/700/450",
-  },
-];
+import { loadNews } from "../data/newsStore";
 
 export default function Home() {
+  const [news] = useState(() => loadNews().slice(0, 3));
   const [selected, setSelected] = useState(null);
   const dialogRef = useRef(null);
 
