@@ -48,6 +48,18 @@ export default function Boshliq() {
                   Tibbiyot fanlari nomzodi (t.f.n.)
                 </p>
               </div>
+              <div>
+                <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-0.5">Lavozimga tayinlangan sana</p>
+                <p className="text-sm text-gray-800">19.04.2019-yil</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-0.5">Buyruq raqami</p>
+                <p className="text-sm text-gray-800">№129-K</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-0.5">Umumiy ish staji</p>
+                <p className="text-sm text-gray-800">30 yil</p>
+              </div>
             </div>
           </div>
         </div>

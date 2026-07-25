@@ -43,7 +43,7 @@ export default function Home() {
       >
         <div className="absolute inset-0 bg-[#0b1c3f]/70"></div>
         <div className="relative max-w-7xl mx-auto px-6 md:px-10 w-full">
-          <h1 className="ml-[270px] text-3xl md:text-5xl font-extrabold text-white max-w-2xl leading-tight uppercase">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white max-w-2xl leading-tight uppercase">
             Sud-tibbiy ekspertiza – qonun ustuvorligi va xolislik xizmatida
           </h1>
         </div>
