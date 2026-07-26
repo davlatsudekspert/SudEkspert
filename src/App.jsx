@@ -10,6 +10,13 @@ import PullikXizmatlar from "./pages/PullikXizmatlar";
 import HuquqiyAsos from "./pages/HuquqiyAsos";
 import BogLanish from "./pages/BogLanish";
 
+import NarxlarJadvali from "./pages/pullik/NarxlarJadvali";
+import TolovTartibi from "./pages/pullik/TolovTartibi";
+import MurojaatQadamlari from "./pages/pullik/MurojaatQadamlari";
+import Qonunlar from "./pages/huquqiy/Qonunlar";
+import VazirlarMahkamasi from "./pages/huquqiy/VazirlarMahkamasi";
+import IchkiHujjatlar from "./pages/huquqiy/IchkiHujjatlar";
+
 import TashkiliyUslubiyBolim from "./pages/bolimlar/TashkiliyUslubiyBolim";
 import SudAmbulatoriyaBolimi from "./pages/bolimlar/SudAmbulatoriyaBolimi";
 import MorfologiyaBolimi from "./pages/bolimlar/MorfologiyaBolimi";
@@ -43,7 +50,13 @@ export default function App() {
           <Route path="/tuzilma" element={<Tuzilma />} />
           <Route path="/yangiliklar" element={<Yangiliklar />} />
           <Route path="/pullik-xizmatlar" element={<PullikXizmatlar />} />
+          <Route path="/pullik-xizmatlar/narxlar-jadvali" element={<NarxlarJadvali />} />
+          <Route path="/pullik-xizmatlar/tolov-tartibi" element={<TolovTartibi />} />
+          <Route path="/pullik-xizmatlar/murojaat-qadamlari" element={<MurojaatQadamlari />} />
           <Route path="/huquqiy-asos" element={<HuquqiyAsos />} />
+          <Route path="/huquqiy-asos/qonunlar" element={<Qonunlar />} />
+          <Route path="/huquqiy-asos/vazirlar-mahkamasi-qarorlari" element={<VazirlarMahkamasi />} />
+          <Route path="/huquqiy-asos/ichki-hujjatlar" element={<IchkiHujjatlar />} />
           <Route path="/boglanish" element={<BogLanish />} />
 
           <Route path="/tuzilma/tashkiliy-uslubiy-bolim" element={<TashkiliyUslubiyBolim />} />

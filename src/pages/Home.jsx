@@ -42,7 +42,7 @@ export default function Home() {
               </div>
               <i className="fa-solid fa-chevron-right text-gray-400"></i>
             </Link>
-            <Link to="/boglanish" className="flex items-center justify-between border border-gray-200 rounded-lg px-4 py-4 hover:border-[#13285A] transition">
+            <Link to="/pullik-xizmatlar/murojaat-qadamlari" className="flex items-center justify-between border border-gray-200 rounded-lg px-4 py-4 hover:border-[#13285A] transition">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-md bg-[#13285A] text-white flex items-center justify-center">
                   <i className="fa-solid fa-folder-open"></i>
