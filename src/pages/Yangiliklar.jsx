@@ -339,12 +339,12 @@ export default function Yangiliklar() {
                 placeholder="Sarlavha"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                maxLength={100}
+                maxLength={400}
                 className={`input input-bordered w-full ${errors.title ? "input-error" : ""}`}
               />
               <div className="flex items-center justify-between mt-1">
                 {errors.title ? <p className="text-xs text-red-500">{errors.title}</p> : <span></span>}
-                <p className="text-xs text-gray-300">{title.length}/100</p>
+                <p className="text-xs text-gray-300">{title.length}/400</p>
               </div>
             </div>
 
@@ -354,12 +354,12 @@ export default function Yangiliklar() {
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 rows="4"
-                maxLength={400}
+                maxLength={1000}
                 className={`textarea textarea-bordered w-full ${errors.desc ? "textarea-error" : ""}`}
               ></textarea>
               <div className="flex items-center justify-between mt-1">
                 {errors.desc ? <p className="text-xs text-red-500">{errors.desc}</p> : <span></span>}
-                <p className="text-xs text-gray-300">{desc.length}/400</p>
+                <p className="text-xs text-gray-300">{desc.length}/1000</p>
               </div>
             </div>
 
