@@ -67,7 +67,7 @@ export default function Home() {
                 <img src={item.image} alt={item.title} className="w-24 h-20 rounded-lg object-cover flex-shrink-0" />
                 <div className="flex-1">
                   <p className="font-semibold text-gray-900 mb-1">{item.title}</p>
-                  <p className="text-sm text-gray-500 mb-2">{item.desc}</p>
+                  
                   <div className="flex items-center justify-between">
                     <p className="text-xs text-gray-400"><i className="fa-regular fa-calendar mr-1"></i>{item.date}</p>
                     <button
