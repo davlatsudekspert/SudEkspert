@@ -1,3 +1,6 @@
+import dmed from "../assets/dmed.webp"
+import mygov from "../assets/mygov.webp"
+import gov from "../assets/gov.webp"
 export default function Footer() {
   return (
     <footer className="bg-[#13285A] text-white">
@@ -34,10 +37,10 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className=" border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 md:px-10 py-8">
-          <p className="font-bold text-sm tracking-wide mb-4">FOYDALI HAVOLALAR</p>
-          <div className="flex flex-col gap-3 max-w-md">
+          <p className="flex font-bold text-sm tracking-wide mb-4">FOYDALI HAVOLALAR</p>
+          <div className="flex gap-3 max-w-md">
             <a
               href="https://dmed.uz"
               target="_blank"
@@ -45,7 +48,7 @@ export default function Footer() {
               className="flex items-center gap-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-4 py-3 transition"
             >
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
-                <i className="fa-solid fa-hospital text-blue-700"></i>
+              <img src={dmed} alt="" />
               </div>
               <div>
                 <p className="font-semibold text-sm">DMED</p>
@@ -60,7 +63,8 @@ export default function Footer() {
               className="flex items-center gap-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-4 py-3 transition"
             >
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
-                <i className="fa-solid fa-circle-check text-blue-700"></i>
+              <img src={mygov} alt="" />
+              
               </div>
               <div>
                 <p className="font-semibold text-sm">Yagona interaktiv davlat xizmatlari portali</p>
@@ -75,7 +79,7 @@ export default function Footer() {
               className="flex items-center gap-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-4 py-3 transition"
             >
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
-                <i className="fa-solid fa-flag text-blue-700"></i>
+              <img src={gov} alt="" />
               </div>
               <div>
                 <p className="font-semibold text-sm">O'zbekiston Respublikasi Hukumat portali</p>
@@ -88,7 +92,7 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-6 md:px-10 py-4 text-xs text-white/60">
-          <p>© 2024 Respublika Sud Tibbiy Ekspertiza Ilmiy-Amaliy Markazi Andijon filiali. Barcha huquqlar himoyalangan.</p>
+          <p>© 2026 Respublika Sud Tibbiy Ekspertiza Ilmiy-Amaliy Markazi Andijon filiali. Barcha huquqlar himoyalangan.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-white">Sayt xaritasi</a>
             <a href="#" className="hover:text-white">Maxfiylik siyosati</a>
