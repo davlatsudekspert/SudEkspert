@@ -1,13 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { loadNews, saveNews } from "../data/newsStore";
+import { loadNews, addNews, deleteNews } from "../data/newsStore";
 
 const MAX_IMAGE_MB = 5;
 
-// ESLATMA: bu tekshiruv faqat oddiy foydalanuvchini to'xtatish uchun —
-// HAQIQIY xavfsizlik emas. Qiymat hash qilingan (ochiq matnda emas) va
-// urinishlar cheklangan, lekin baribir bu client-side (brauzer) tekshiruvi —
-// u faqat shu UI tugmasini qulflaydi, ma'lumotlarni emas. Chinakam himoya
-// uchun serverli (backend) autentifikatsiya kerak.
 const ALI_HASH = "7d2cd1ce8ba19614bdd30e5f09c9277e6b01e1e4fd4a715367e4e65955623248";
 const MAX_ATTEMPTS = 3;
 const LOCKOUT_MS = 30000;
@@ -21,7 +16,8 @@ async function digest(text) {
 }
 
 export default function Yangiliklar() {
-  const [news, setNews] = useState(() => loadNews());
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [toast, setToast] = useState(null);
@@ -41,14 +37,17 @@ export default function Yangiliklar() {
 
   const [aliValue, setAliValue] = useState("");
   const [aliError, setAliError] = useState("");
-  const [aliAction, setAliAction] = useState(null); // "add" | "delete"
+  const [aliAction, setAliAction] = useState(null);
   const [aliAttempts, setAliAttempts] = useState(0);
   const [aliLockedUntil, setAliLockedUntil] = useState(null);
   const [aliChecking, setAliChecking] = useState(false);
 
   useEffect(() => {
-    saveNews(news);
-  }, [news]);
+    loadNews().then((data) => {
+      setNews(data);
+      setLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     if (!toast) return;
@@ -147,23 +146,26 @@ export default function Yangiliklar() {
     return Object.keys(next).length === 0;
   };
 
-  const handleAddNews = (e) => {
+  const handleAddNews = async (e) => {
     e.preventDefault();
     if (!validate()) return;
     const today = new Date().toLocaleDateString("uz-UZ", { year: "numeric", month: "long", day: "numeric" });
-    setNews((prev) => [
-      {
-        id: Date.now(),
-        title: title.trim(),
-        desc: desc.trim(),
-        full: desc.trim(),
-        date: date.trim() || today,
-        image: imagePreview,
-      },
-      ...prev,
-    ]);
-    addDialogRef.current?.close();
-    setToast({ type: "success", text: "Yangilik muvaffaqiyatli qo'shildi" });
+    const item = {
+      title: title.trim(),
+      desc: desc.trim(),
+      full: desc.trim(),
+      date: date.trim() || today,
+      image: imagePreview,
+    };
+    try {
+      await addNews(item);
+      const data = await loadNews();
+      setNews(data);
+      addDialogRef.current?.close();
+      setToast({ type: "success", text: "Yangilik muvaffaqiyatli qo'shildi" });
+    } catch {
+      setToast({ type: "error", text: "Yangilik qo'shishda xatolik yuz berdi" });
+    }
   };
 
   const askDelete = (item) => {
@@ -171,12 +173,26 @@ export default function Yangiliklar() {
     openAliGate("delete");
   };
 
-  const confirmDelete = () => {
-    setNews((prev) => prev.filter((n) => n.id !== deleteTarget.id));
-    deleteDialogRef.current?.close();
-    setToast({ type: "info", text: "Yangilik o'chirildi" });
+  const confirmDelete = async () => {
+    try {
+      await deleteNews(deleteTarget.id);
+      const data = await loadNews();
+      setNews(data);
+      deleteDialogRef.current?.close();
+      setToast({ type: "info", text: "Yangilik o'chirildi" });
+    } catch {
+      setToast({ type: "error", text: "Yangilik o'chirishda xatolik yuz berdi" });
+    }
     setDeleteTarget(null);
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 md:px-10 py-16 flex items-center justify-center min-h-[50vh]">
+        <span className="loading loading-spinner loading-lg text-[#13285A]"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-10 py-16">
@@ -222,7 +238,7 @@ export default function Yangiliklar() {
               <img src={item.image} alt={item.title} className="w-full h-44 object-cover" />
               <div className="p-5">
                 <p className="font-semibold text-gray-900 mb-2 line-clamp-2">{item.title}</p>
-                <p className="text-sm text-gray-500 mb-3 line-clamp-2">{item.desc}</p>
+                <p className="text-sm text-gray-500 mb-3 line-clamp-2">{item.description}</p>
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-gray-400"><i className="fa-regular fa-calendar mr-1"></i>{item.date}</p>
                   <button
@@ -246,7 +262,7 @@ export default function Yangiliklar() {
               <div className="p-6">
                 <p className="text-xs text-gray-400 mb-2"><i className="fa-regular fa-calendar mr-1"></i>{selected.date}</p>
                 <h3 className="text-xl font-bold text-[#13285A] mb-3">{selected.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{selected.full}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{selected.body}</p>
               </div>
             </>
           )}
@@ -407,7 +423,7 @@ export default function Yangiliklar() {
 
       {toast && (
         <div className="toast toast-end z-50">
-          <div className={`alert ${toast.type === "success" ? "alert-success" : "alert-info"} text-white text-sm`}>
+          <div className={`alert ${toast.type === "success" ? "alert-success" : toast.type === "error" ? "alert-error" : "alert-info"} text-white text-sm`}>
             <span>{toast.text}</span>
           </div>
         </div>

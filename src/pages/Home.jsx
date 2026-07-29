@@ -1,12 +1,16 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import buildingImg from "../assets/building.jpg";
 import { loadNews } from "../data/newsStore";
 
 export default function Home() {
-  const [news] = useState(() => loadNews().slice(0, 3));
+  const [news, setNews] = useState([]);
   const [selected, setSelected] = useState(null);
   const dialogRef = useRef(null);
+
+  useEffect(() => {
+    loadNews().then((data) => setNews(data.slice(0, 3)));
+  }, []);
 
   const openModal = (item) => {
     setSelected(item);
@@ -92,7 +96,7 @@ export default function Home() {
               <div className="p-6">
                 <p className="text-xs text-gray-400 mb-2"><i className="fa-regular fa-calendar mr-1"></i>{selected.date}</p>
                 <h3 className="text-xl font-bold text-[#13285A] mb-3">{selected.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{selected.full}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{selected.body}</p>
               </div>
             </>
           )}
