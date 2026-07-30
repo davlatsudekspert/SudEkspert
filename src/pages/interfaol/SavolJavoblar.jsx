@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     q: "Pullik xizmatdan foydalanish uchun qanday hujjatlar kerak?",
-    a: "Ariza, shaxsni tasdiqlovchi hujjat nusxasi va to'lov cheki talab qilinadi. Batafsil ma'lumot \"Pullik xizmatlar\" bo'limida keltirilgan.",
+    a: "Ariza, shaxsniii tasdiqlovchi hujjat nusxasi va to'lov cheki talab qilinadi. Batafsil ma'lumot \"Pullik xizmatlar\" bo'limida keltirilgan.",
   },
   {
     q: "Ekspertiza xulosasiga qanday murojaat qilish mumkin?",
