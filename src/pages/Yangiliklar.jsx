@@ -32,6 +32,7 @@ export default function Yangiliklar() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
 
@@ -64,6 +65,7 @@ export default function Yangiliklar() {
     setTitle("");
     setDesc("");
     setDate("");
+    setImageFile(null);
     setImagePreview(null);
     setErrors({});
   };
@@ -125,6 +127,7 @@ export default function Yangiliklar() {
       return;
     }
     setErrors((e) => ({ ...e, image: null }));
+    setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
   };
 
@@ -155,7 +158,7 @@ export default function Yangiliklar() {
       desc: desc.trim(),
       full: desc.trim(),
       date: date.trim() || today,
-      image: imagePreview,
+      image: imageFile || imagePreview,
     };
     try {
       await addNews(item);
@@ -175,7 +178,7 @@ export default function Yangiliklar() {
 
   const confirmDelete = async () => {
     try {
-      await deleteNews(deleteTarget.id);
+      await deleteNews(deleteTarget);
       const data = await loadNews();
       setNews(data);
       deleteDialogRef.current?.close();
