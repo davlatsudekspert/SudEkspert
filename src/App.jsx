@@ -16,6 +16,9 @@ import MurojaatQadamlari from "./pages/pullik/MurojaatQadamlari";
 import Qonunlar from "./pages/huquqiy/Qonunlar";
 import VazirlarMahkamasi from "./pages/huquqiy/VazirlarMahkamasi";
 import IchkiHujjatlar from "./pages/huquqiy/IchkiHujjatlar";
+import SavolJavoblar from "./pages/interfaol/SavolJavoblar";
+import DavlatRamzlari from "./pages/interfaol/DavlatRamzlari";
+import Akkreditatsiya from "./pages/interfaol/Akkreditatsiya";
 
 import TashkiliyUslubiyBolim from "./pages/bolimlar/TashkiliyUslubiyBolim";
 import SudAmbulatoriyaBolimi from "./pages/bolimlar/SudAmbulatoriyaBolimi";
@@ -57,6 +60,9 @@ export default function App() {
           <Route path="/huquqiy-asos/qonunlar" element={<Qonunlar />} />
           <Route path="/huquqiy-asos/vazirlar-mahkamasi-qarorlari" element={<VazirlarMahkamasi />} />
           <Route path="/huquqiy-asos/ichki-hujjatlar" element={<IchkiHujjatlar />} />
+          <Route path="/interfaol-xizmatlar/savol-javoblar" element={<SavolJavoblar />} />
+          <Route path="/interfaol-xizmatlar/davlat-ramzlari" element={<DavlatRamzlari />} />
+          <Route path="/interfaol-xizmatlar/akkreditatsiya" element={<Akkreditatsiya />} />
           <Route path="/boglanish" element={<BogLanish />} />
 
           <Route path="/tuzilma/tashkiliy-uslubiy-bolim" element={<TashkiliyUslubiyBolim />} />

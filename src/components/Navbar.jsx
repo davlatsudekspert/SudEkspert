@@ -28,6 +28,15 @@ const hoverMenus = {
       { title: "Ichki hujjatlar", desc: "Markaz nizomi va ekspertiza tayinlash tartibi", to: "/huquqiy-asos/ichki-hujjatlar" },
     ],
   },
+  interfaol: {
+    label: "INTERFAOL XIZMATLAR",
+    to: "/interfaol-xizmatlar/savol-javoblar",
+    items: [
+      { title: "Savol-javoblar", desc: "Ko'p beriladigan savollarga javoblar", to: "/interfaol-xizmatlar/savol-javoblar" },
+      { title: "Davlat ramzlari", desc: "Madhiya, Gerb, Bayroq", to: "/interfaol-xizmatlar/davlat-ramzlari" },
+      { title: "Akkreditatsiya", desc: "Akkreditatsiya bo'yicha ma'lumot", to: "/interfaol-xizmatlar/akkreditatsiya" },
+    ],
+  },
 };
 
 export default function Navbar() {
