@@ -4,7 +4,7 @@ export default function FilialTarixi() {
       <h1 className="text-3xl md:text-4xl font-extrabold text-[#13285A] mb-6">Filial tarixi</h1>
       <p className="text-gray-600 leading-relaxed max-w-3xl">
         Respublika Sud Tibbiy Ekspertiza Ilmiy-Amaliy Markazi Andijon filiali ko'p yillik faoliyati davomida sud-tibbiy
-        ekspertiza sohasida qonun ustuvorligi va xolislikni ta'minlashga xizmat qilib kelmoqda.
+        ekspertiza sohasida qonun ustuvorligi va xolislikni ta'minlashga xizmat qilib kelmoqda
       </p>
     </div>
   );
