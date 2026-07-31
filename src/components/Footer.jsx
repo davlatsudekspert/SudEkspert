@@ -21,12 +21,18 @@ const havolalar = [
     title: "O'zbekiston Respublikasi Hukumat portali",
     desc: "gov.uz",
   },
+  {
+    href: "https://forensic.uz",
+    img: null,
+    title: "Sud ekspertiza axborot portali",
+    desc: "forensic.uz",
+  },
 ];
 
 export default function Footer() {
   return (
     <footer className="bg-[#13285A] text-white">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-10 py-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-10 py-10">
         <div className="flex items-start gap-4">
           <div className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center flex-shrink-0">
             <i className="fa-solid fa-location-dot"></i>
@@ -44,7 +50,7 @@ export default function Footer() {
           </div>
           <div>
             <p className="font-bold text-sm tracking-wide mb-1">TELEFON</p>
-            <p className="text-sm text-white/70">+998 74 227-44-12</p>
+            <a href="tel:+998742274412" className="text-sm text-white/70 hover:text-white transition">+998 74 227-44-12</a>
           </div>
         </div>
 
@@ -55,6 +61,44 @@ export default function Footer() {
           <div>
             <p className="font-bold text-sm tracking-wide mb-1">ISH VAQTI</p>
             <p className="text-sm text-white/70">Dushanba – Juma,<br />08:00 - 18:00</p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <div className="w-11 h-11 rounded-full border border-white/40 flex items-center justify-center flex-shrink-0">
+            <i className="fa-solid fa-share-nodes"></i>
+          </div>
+          <div>
+            <p className="font-bold text-sm tracking-wide mb-3">BIZNI KUZATING</p>
+            <div className="flex gap-3">
+              <a
+                href="https://www.facebook.com/forensic.uz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full bg-white/5 hover:bg-blue-600 border border-white/10 flex items-center justify-center transition"
+                title="Facebook"
+              >
+                <i className="fa-brands fa-facebook-f text-lg"></i>
+              </a>
+              <a
+                href="https://t.me/RSTEIAM"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full bg-white/5 hover:bg-sky-500 border border-white/10 flex items-center justify-center transition"
+                title="Telegram"
+              >
+                <i className="fa-brands fa-telegram text-lg"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/respublika_sudtib_ekspertiza"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full bg-white/5 hover:bg-pink-600 border border-white/10 flex items-center justify-center transition"
+                title="Instagram"
+              >
+                <i className="fa-brands fa-instagram text-lg"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -74,7 +118,11 @@ export default function Footer() {
                 >
                   <div className="flex items-center gap-5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl px-6 py-5 transition h-full">
                     <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5">
-                      <img src={h.img} alt="" className="w-full h-full object-contain" />
+                      {h.img ? (
+                        <img src={h.img} alt="" className="w-full h-full object-contain" />
+                      ) : (
+                        <i className="fa-solid fa-scale-balanced text-2xl text-[#13285A]"></i>
+                      )}
                     </div>
                     <div>
                       <p className="font-semibold text-lg">{h.title}</p>

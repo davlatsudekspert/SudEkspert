@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const faqs = [
-  {
+{
     q: "Sud-tibbiy ekspertiza qanday tayinlanadi?",
     a: "Sud-tibbiy ekspertiza tergov organi, prokuror, sud yoki qonunda belgilangan boshqa vakolatli shaxsning qarori asosida tayinlanadi. Fuqarolik ishlari bo'yicha esa adliya bilan bog'liq idoralar yoki advokat so'rovi orqali ham tashkil etilishi mumkin.",
   },
@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Sud-ekspertlik faoliyatining asosiy prinsiplari nimadan iborat?",
-    a: "Qonuniylik, inson huquq va erkinliklariga rioya etilishi, sud ekspertining mustaqilligi, sud-ekspert tekshirishlarining xolisligi, har tomonlamaligi va to'liqligi sud-ekspertlik faoliyatining asosiy prinsiplaridir.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonuni 4-moddasi)",
+    a: "Qonuniylik, inson huquq va erkinliklariga rioya etilishi, sud ekspertining mustaqilligi, sud-ekspert tekshirishlarining xolisligi, har tomonlamaligi va to'liqligi hamda kasbiy sirni saqlash sud-ekspertlik faoliyatining asosiy prinsiplaridir.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonuni 5-moddasi)",
   },
   {
     q: "Sud eksperti sifatida kimlar ishtirok etishi mumkin?",
@@ -51,15 +51,15 @@ const faqs = [
   },
   {
     q: "Sud ekspertizasini o'tkazishga nimalar asos hisoblanadi?",
-    a: "O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 17-moddasiga ko'ra, tergovga qadar tekshiruvni amalga oshiruvchi organ mansabdor shaxsining, surishtiruvchining, tergovchining, prokurorning yoki sudyaning qarori, sudning ajrimi sud ekspertizasini o'tkazish asoslaridir.",
+    a: "O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 32-moddasiga ko'ra, tergovga qadar tekshiruvni amalga oshiruvchi organ mansabdor shaxsining, surishtiruvchining, tergovchining, prokurorning yoki sudyaning qarori, sudning ajrimi sud ekspertizasini o'tkazish asoslaridir.",
   },
   {
     q: "Sud ekspertizasi qachondan boshlab tayinlangan deb hisoblanadi?",
-    a: "Sud ekspertizasi tegishli qaror yoki ajrim chiqarilgan kundan e'tiboran tayinlangan hisoblanadi.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 17-moddasi)",
+    a: "Sud ekspertizasi tegishli qaror yoki ajrim chiqarilgan kundan e'tiboran tayinlangan hisoblanadi.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 32-moddasi)",
   },
   {
     q: "Sud ekspertizasi to'g'risidagi qonun hujjatlarini buzganlik uchun javobgarlik bormi?",
-    a: "Sud ekspertizasi to'g'risidagi qonun hujjatlarini buzganlikda aybdor shaxslar belgilangan tartibda javobgar bo'ladi.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 31-moddasi)",
+    a: "Sud ekspertizasi to'g'risidagi qonun hujjatlarini buzganlikda aybdor shaxslar belgilangan tartibda javobgar bo'ladi.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 54-moddasi)",
   },
 ];
 
