@@ -34,7 +34,7 @@ export default function Footer() {
           <div>
             <p className="font-bold text-sm tracking-wide mb-1">MANZIL</p>
             <p className="text-sm text-white/70">Andijon shahri,<br />Maybog'cha ko'chasi, 63-uy</p>
-            <a href="#" className="text-sm text-sky-300 hover:underline">Xaritada ko'rish</a>
+            <a target="blank" href="https://maps.app.goo.gl/c9m8V7zQaLmHcKai8" className="text-sm text-sky-300 hover:underline">Xaritada ko'rish</a>
           </div>
         </div>
 
@@ -54,7 +54,7 @@ export default function Footer() {
           </div>
           <div>
             <p className="font-bold text-sm tracking-wide mb-1">ISH VAQTI</p>
-            <p className="text-sm text-white/70">Dushanba – Juma,<br />09:00 - 18:00</p>
+            <p className="text-sm text-white/70">Dushanba – Juma,<br />08:00 - 18:00</p>
           </div>
         </div>
       </div>

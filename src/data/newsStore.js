@@ -2,12 +2,15 @@ import { supabase } from "../lib/supabase";
 
 const BUCKET = "news-images";
 
-export async function uploadImage(file) {
-  const ext = file.name.split(".").pop() || "jpg";
+export async function uploadMedia(file) {
+  const ext = (file.name.split(".").pop() || "bin").toLowerCase();
   const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-  const { error } = await supabase.storage.from(BUCKET).upload(fileName, file);
+  const { error } = await supabase.storage.from(BUCKET).upload(fileName, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
   if (error) {
-    console.error("Rasm yuklashda xatolik:", error);
+    console.error("Fayl yuklashda xatolik:", error);
     throw error;
   }
   const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(fileName);
@@ -19,9 +22,7 @@ export async function deleteImage(url) {
   const fileName = url.split("/").pop();
   if (!fileName) return;
   await supabase.storage.from(BUCKET).remove([fileName]);
-}
-
-export async function loadNews() {
+}export async function loadNews() {
   const { data, error } = await supabase
     .from("news")
     .select("*")
@@ -52,9 +53,12 @@ export async function saveNews(news) {
 }
 
 export async function addNews(item) {
-  const imageUrl = item.image instanceof File
-    ? await uploadImage(item.image)
-    : item.image;
+  const upload = async (f) => (f instanceof File ? await uploadMedia(f) : f || null);
+
+  const image = await upload(item.image);
+  const image2 = await upload(item.image2);
+  const image3 = await upload(item.image3);
+  const video = await upload(item.video);
 
   const { error } = await supabase.from("news").insert({
     id: Date.now(),
@@ -62,7 +66,10 @@ export async function addNews(item) {
     description: item.desc,
     body: item.full,
     date: item.date,
-    image: imageUrl,
+    image,
+    image2,
+    image3,
+    video,
   });
 
   if (error) {
@@ -72,7 +79,9 @@ export async function addNews(item) {
 }
 
 export async function deleteNews(item) {
-  if (item?.image) await deleteImage(item.image);
+  for (const url of [item?.image, item?.image2, item?.image3, item?.video]) {
+    if (url) await deleteImage(url);
+  }
 
   const { error } = await supabase.from("news").delete().eq("id", item.id);
 

@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { loadNews, addNews, deleteNews } from "../data/newsStore";
+import { loadNews, addNews } from "../data/newsStore";
 
 const MAX_IMAGE_MB = 5;
+const MAX_IMAGES = 3;
+const MAX_VIDEO_MB = 50;
 
 const ALI_HASH = "7d2cd1ce8ba19614bdd30e5f09c9277e6b01e1e4fd4a715367e4e65955623248";
 const MAX_ATTEMPTS = 3;
@@ -19,26 +21,26 @@ export default function Yangiliklar() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
-  const [deleteTarget, setDeleteTarget] = useState(null);
   const [toast, setToast] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
   const dialogRef = useRef(null);
   const addDialogRef = useRef(null);
-  const deleteDialogRef = useRef(null);
   const aliDialogRef = useRef(null);
   const fileInputRef = useRef(null);
+  const videoInputRef = useRef(null);
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
+  const [videoFile, setVideoFile] = useState(null);
+  const [videoPreview, setVideoPreview] = useState(null);
   const [errors, setErrors] = useState({});
 
   const [aliValue, setAliValue] = useState("");
   const [aliError, setAliError] = useState("");
-  const [aliAction, setAliAction] = useState(null);
   const [aliAttempts, setAliAttempts] = useState(0);
   const [aliLockedUntil, setAliLockedUntil] = useState(null);
   const [aliChecking, setAliChecking] = useState(false);
@@ -65,13 +67,14 @@ export default function Yangiliklar() {
     setTitle("");
     setDesc("");
     setDate("");
-    setImageFile(null);
-    setImagePreview(null);
+    setImageFiles([]);
+    setImagePreviews([]);
+    setVideoFile(null);
+    setVideoPreview(null);
     setErrors({});
   };
 
-  const openAliGate = (action) => {
-    setAliAction(action);
+  const openAliGate = () => {
     setAliValue("");
     setAliError("");
     aliDialogRef.current?.showModal();
@@ -94,12 +97,8 @@ export default function Yangiliklar() {
       setAliAttempts(0);
       setAliLockedUntil(null);
       aliDialogRef.current?.close();
-      if (aliAction === "add") {
-        resetForm();
-        addDialogRef.current?.showModal();
-      } else if (aliAction === "delete") {
-        deleteDialogRef.current?.showModal();
-      }
+      resetForm();
+      addDialogRef.current?.showModal();
       setAliValue("");
       setAliError("");
     } else {
@@ -116,27 +115,65 @@ export default function Yangiliklar() {
     }
   };
 
-  const processFile = (file) => {
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setErrors((e) => ({ ...e, image: "Faqat rasm fayllarini yuklash mumkin" }));
-      return;
+  const processImages = (files) => {
+    const next = [];
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) continue;
+      if (file.size > MAX_IMAGE_MB * 1024 * 1024) {
+        setErrors((e) => ({ ...e, image: `Rasm hajmi ${MAX_IMAGE_MB}MB dan oshmasligi kerak` }));
+        return;
+      }
+      if (next.length + imageFiles.length >= MAX_IMAGES) {
+        setErrors((e) => ({ ...e, image: `Ko'pi bilan ${MAX_IMAGES} ta rasm qo'shish mumkin` }));
+        return;
+      }
+      next.push(file);
     }
-    if (file.size > MAX_IMAGE_MB * 1024 * 1024) {
-      setErrors((e) => ({ ...e, image: `Rasm hajmi ${MAX_IMAGE_MB}MB dan oshmasligi kerak` }));
-      return;
-    }
+    if (next.length === 0) return;
     setErrors((e) => ({ ...e, image: null }));
-    setImageFile(file);
-    setImagePreview(URL.createObjectURL(file));
+    setImageFiles((prev) => [...prev, ...next].slice(0, MAX_IMAGES));
+    setImagePreviews((prev) => [...prev, ...next.map((f) => URL.createObjectURL(f))].slice(0, MAX_IMAGES));
   };
 
-  const handleImageChange = (e) => processFile(e.target.files?.[0]);
+  const removeImage = (idx) => {
+    setImageFiles((prev) => prev.filter((_, i) => i !== idx));
+    setImagePreviews((prev) => prev.filter((_, i) => i !== idx));
+  };
+
+  const processVideo = (file) => {
+    if (!file) return;
+    if (!file.type.startsWith("video/")) {
+      setErrors((e) => ({ ...e, video: "Faqat video fayllarini yuklash mumkin" }));
+      return;
+    }
+    if (file.size > MAX_VIDEO_MB * 1024 * 1024) {
+      setErrors((e) => ({ ...e, video: `Video hajmi ${MAX_VIDEO_MB}MB dan oshmasligi kerak` }));
+      return;
+    }
+    setErrors((e) => ({ ...e, video: null }));
+    setVideoFile(file);
+    setVideoPreview(URL.createObjectURL(file));
+  };
+
+  const removeVideo = () => {
+    setVideoFile(null);
+    setVideoPreview(null);
+  };
+
+  const handleImageChange = (e) => {
+    processImages(Array.from(e.target.files || []));
+    e.target.value = "";
+  };
+
+  const handleVideoChange = (e) => {
+    processVideo(e.target.files?.[0]);
+    e.target.value = "";
+  };
 
   const handleDrop = (e) => {
     e.preventDefault();
     setDragActive(false);
-    processFile(e.dataTransfer.files?.[0]);
+    processImages(Array.from(e.dataTransfer.files || []));
   };
 
   const validate = () => {
@@ -144,7 +181,7 @@ export default function Yangiliklar() {
     if (!title.trim()) next.title = "Sarlavha kiritilishi shart";
     else if (title.trim().length < 5) next.title = "Sarlavha kamida 5 ta belgidan iborat bo'lsin";
     if (!desc.trim()) next.desc = "Tavsif kiritilishi shart";
-    if (!imagePreview) next.image = "Rasm tanlanishi shart";
+    if (imagePreviews.length === 0) next.image = "Kamida 1 ta rasm tanlanishi shart";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -158,7 +195,10 @@ export default function Yangiliklar() {
       desc: desc.trim(),
       full: desc.trim(),
       date: date.trim() || today,
-      image: imageFile || imagePreview,
+      image: imageFiles[0] || null,
+      image2: imageFiles[1] || null,
+      image3: imageFiles[2] || null,
+      video: videoFile || null,
     };
     try {
       await addNews(item);
@@ -169,24 +209,6 @@ export default function Yangiliklar() {
     } catch {
       setToast({ type: "error", text: "Yangilik qo'shishda xatolik yuz berdi" });
     }
-  };
-
-  const askDelete = (item) => {
-    setDeleteTarget(item);
-    openAliGate("delete");
-  };
-
-  const confirmDelete = async () => {
-    try {
-      await deleteNews(deleteTarget);
-      const data = await loadNews();
-      setNews(data);
-      deleteDialogRef.current?.close();
-      setToast({ type: "info", text: "Yangilik o'chirildi" });
-    } catch {
-      setToast({ type: "error", text: "Yangilik o'chirishda xatolik yuz berdi" });
-    }
-    setDeleteTarget(null);
   };
 
   if (loading) {
@@ -205,7 +227,7 @@ export default function Yangiliklar() {
           <p className="text-sm text-gray-400 mt-1">{news.length} ta yangilik</p>
         </div>
         <button
-          onClick={() => openAliGate("add")}
+          onClick={openAliGate}
           className="flex items-center gap-2 bg-[#13285A] text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:opacity-90 active:scale-95 transition"
         >
           <i className="fa-solid fa-plus"></i>
@@ -218,7 +240,7 @@ export default function Yangiliklar() {
           <i className="fa-regular fa-newspaper text-4xl text-gray-300 mb-4"></i>
           <p className="text-gray-500 mb-4">Hozircha yangiliklar mavjud emas</p>
           <button
-            onClick={() => openAliGate("add")}
+            onClick={openAliGate}
             className="text-sm font-semibold text-[#13285A] hover:underline"
           >
             Birinchi yangilikni qo'shing
@@ -231,14 +253,12 @@ export default function Yangiliklar() {
               key={item.id}
               className="group relative border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-[fadein_0.4s_ease]"
             >
-              <button
-                onClick={() => askDelete(item)}
-                className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition flex items-center justify-center hover:bg-red-600"
-                title="O'chirish"
-              >
-                <i className="fa-solid fa-trash text-xs"></i>
-              </button>
               <img src={item.image} alt={item.title} className="w-full h-44 object-cover" />
+              {item.video && (
+                <span className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/50 text-white text-xs font-semibold rounded-full px-3 py-1">
+                  <i className="fa-solid fa-video"></i> Video
+                </span>
+              )}
               <div className="p-5">
                 <p className="font-semibold text-gray-900 mb-2 line-clamp-2">{item.title}</p>
                 <p className="text-sm text-gray-500 mb-3 line-clamp-2">{item.description}</p>
@@ -261,7 +281,19 @@ export default function Yangiliklar() {
         <div className="modal-box p-0 overflow-hidden">
           {selected && (
             <>
-              <img src={selected.image} alt={selected.title} className="w-full h-56 object-cover" />
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                {[selected.image, selected.image2, selected.image3].filter(Boolean).map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`${selected.title} ${i + 1}`}
+                    className={`w-full h-40 object-cover ${i === 0 ? "col-span-2 md:col-span-3 h-56" : ""}`}
+                  />
+                ))}
+              </div>
+              {selected.video && (
+                <video src={selected.video} controls className="w-full bg-black" />
+              )}
               <div className="p-6">
                 <p className="text-xs text-gray-400 mb-2"><i className="fa-regular fa-calendar mr-1"></i>{selected.date}</p>
                 <h3 className="text-xl font-bold text-[#13285A] mb-3">{selected.title}</h3>
@@ -281,7 +313,7 @@ export default function Yangiliklar() {
             <i className="fa-solid fa-lock mr-2"></i>PIN kod
           </h3>
           <p className="text-sm text-gray-500 mb-4">
-            {aliAction === "delete" ? "Yangilikni o'chirish uchun" : "Yangilik qo'shish uchun"} PIN kod kiriting.
+            Yangilik qo'shish uchun PIN kod kiriting.
           </p>
           <form onSubmit={handleAliSubmit} className="flex flex-col gap-3">
             <input
@@ -322,7 +354,7 @@ export default function Yangiliklar() {
           <h3 className="text-lg font-bold text-[#13285A] mb-4">Yangi yangilik qo'shish</h3>
           <form onSubmit={handleAddNews} noValidate className="flex flex-col gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Rasm</label>
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Rasmlar (ko'pi bilan {MAX_IMAGES} ta)</label>
               <div
                 onClick={() => fileInputRef.current?.click()}
                 onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
@@ -332,13 +364,33 @@ export default function Yangiliklar() {
                   dragActive ? "border-[#13285A] bg-blue-50" : "border-gray-200 hover:border-gray-300"
                 }`}
               >
-                {imagePreview ? (
-                  <img src={imagePreview} alt="Preview" className="w-full h-40 object-cover rounded-lg" />
+                {imagePreviews.length > 0 ? (
+                  <div className="grid grid-cols-3 gap-2">
+                    {Array.from({ length: MAX_IMAGES }).map((_, i) =>
+                      imagePreviews[i] ? (
+                        <div key={i} className="relative group/preview">
+                          <img src={imagePreviews[i]} alt={`Preview ${i + 1}`} className="w-full h-24 object-cover rounded-lg" />
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); removeImage(i); }}
+                            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 text-white text-xs flex items-center justify-center hover:bg-red-600 transition"
+                            title="O'chirish"
+                          >
+                            <i className="fa-solid fa-xmark"></i>
+                          </button>
+                        </div>
+                      ) : (
+                        <div key={i} className="h-24 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-300">
+                          <i className="fa-solid fa-plus text-xl"></i>
+                        </div>
+                      )
+                    )}
+                  </div>
                 ) : (
                   <div className="py-6 text-gray-400">
                     <i className="fa-solid fa-cloud-arrow-up text-2xl mb-2"></i>
-                    <p className="text-sm">Rasmni shu yerga tashlang yoki bosing</p>
-                    <p className="text-xs mt-1">JPG, PNG — maksimal {MAX_IMAGE_MB}MB</p>
+                    <p className="text-sm">Rasmlarni shu yerga tashlang yoki bosing</p>
+                    <p className="text-xs mt-1">JPG, PNG — maksimal {MAX_IMAGE_MB}MB, {MAX_IMAGES} tagacha</p>
                   </div>
                 )}
               </div>
@@ -346,10 +398,55 @@ export default function Yangiliklar() {
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
+                multiple
                 onChange={handleImageChange}
                 className="hidden"
               />
               {errors.image && <p className="text-xs text-red-500 mt-1">{errors.image}</p>}
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Video (ixtiyoriy)</label>
+              <div
+                onClick={() => videoInputRef.current?.click()}
+                className={`cursor-pointer rounded-lg border-2 border-dashed p-4 text-center transition ${
+                  videoFile ? "border-green-300 bg-green-50" : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                {videoFile ? (
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <i className="fa-solid fa-video text-2xl text-green-600"></i>
+                      <div className="text-left min-w-0">
+                        <p className="text-sm font-semibold text-gray-800 truncate">{videoFile.name}</p>
+                        <p className="text-xs text-gray-400">{(videoFile.size / (1024 * 1024)).toFixed(1)}MB</p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); removeVideo(); }}
+                      className="w-7 h-7 rounded-full bg-black/60 text-white text-xs flex items-center justify-center hover:bg-red-600 transition flex-shrink-0"
+                      title="O'chirish"
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="py-4 text-gray-400">
+                    <i className="fa-solid fa-cloud-arrow-up text-2xl mb-2"></i>
+                    <p className="text-sm">Videoni tanlash uchun bosing</p>
+                    <p className="text-xs mt-1">MP4, WebM — maksimal {MAX_VIDEO_MB}MB</p>
+                  </div>
+                )}
+              </div>
+              <input
+                ref={videoInputRef}
+                type="file"
+                accept="video/*"
+                onChange={handleVideoChange}
+                className="hidden"
+              />
+              {errors.video && <p className="text-xs text-red-500 mt-1">{errors.video}</p>}
             </div>
 
             <div>
@@ -403,21 +500,6 @@ export default function Yangiliklar() {
               </button>
             </div>
           </form>
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
-
-      <dialog ref={deleteDialogRef} className="modal">
-        <div className="modal-box max-w-sm text-center">
-          <i className="fa-solid fa-triangle-exclamation text-3xl text-red-500 mb-3"></i>
-          <h3 className="text-lg font-bold text-gray-900 mb-2">Yangilikni o'chirasizmi?</h3>
-          <p className="text-sm text-gray-500 mb-6">"{deleteTarget?.title}" butunlay o'chiriladi. Bu amalni bekor qilib bo'lmaydi.</p>
-          <div className="flex gap-3 justify-center">
-            <button onClick={() => deleteDialogRef.current?.close()} className="btn btn-ghost">Bekor qilish</button>
-            <button onClick={confirmDelete} className="bg-red-600 text-white rounded-lg px-5 py-2.5 text-sm font-semibold hover:opacity-90 transition">O'chirish</button>
-          </div>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
