@@ -1,4 +1,5 @@
 import logo from '../assets/logo.jpg'
+import { Link } from 'react-router-dom'
 
 export default function TopBar() {
   return (
@@ -21,6 +22,13 @@ export default function TopBar() {
           </div>
         </div>
 
+        <Link
+          to="/boglanish"
+          className="flex items-center gap-2.5 bg-[#13285A] text-white rounded-full px-6 py-3 text-sm font-bold tracking-wide hover:opacity-90 active:scale-95 transition flex-shrink-0"
+        >
+          <i className="fa-solid fa-phone"></i>
+          Bog'lanish
+        </Link>
       </div>
     </div>
   );

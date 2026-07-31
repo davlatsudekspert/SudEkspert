@@ -6,7 +6,6 @@ const simpleLinks = [
   { label: "FILIAL TARIXI", to: "/filial-tarixi" },
   { label: "TUZILMA", to: "/tuzilma" },
   { label: "YANGILIKLAR", to: "/yangiliklar" },
-  { label: "BOG'LANISH", to: "/boglanish" },
 ];
 
 const hoverMenus = {
