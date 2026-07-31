@@ -28,18 +28,6 @@ export default function Qonunlar() {
           </div>
           <i className="fa-solid fa-file-pdf text-red-500 text-xl flex-shrink-0"></i>
         </a>
-        <a
-          href="/docs/sud-ekspertlik-qonuni.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="border border-blue-100 rounded-lg p-5 bg-white shadow-sm hover:border-blue-400 hover:bg-blue-50 transition flex items-center justify-between gap-4"
-        >
-          <div>
-            <p className="font-semibold text-gray-900 mb-1">"Sog'liqni saqlash tizimi to'g'risida"gi qonun</p>
-            <p className="text-sm text-gray-500">Tibbiy faoliyatni umumiy tartibga soluvchi qonun hujjati.</p>
-          </div>
-          <i className="fa-solid fa-file-pdf text-red-500 text-xl flex-shrink-0"></i>
-        </a>
       </div>
     </div>
   );
