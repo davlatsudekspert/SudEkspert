@@ -10,7 +10,7 @@ export default function Boshliq() {
       </Link>
 
       <div className="bg-white border border-blue-100 rounded-xl shadow-sm overflow-hidden">
-        <div className="bg-blue-800 px-6 md:px-10 py-6">
+        <div className="bg-[#13285A] px-6 md:px-10 py-6">
           <p className="text-white/70 text-sm font-semibold tracking-wide">FILIAL RAHBARIYATI</p>
           <h1 className="text-2xl md:text-3xl font-extrabold text-white mt-1">Filial boshlig'i</h1>
         </div>
