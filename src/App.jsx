@@ -14,7 +14,6 @@ import NarxlarJadvali from "./pages/pullik/NarxlarJadvali";
 import TolovTartibi from "./pages/pullik/TolovTartibi";
 import MurojaatQadamlari from "./pages/pullik/MurojaatQadamlari";
 import Qonunlar from "./pages/huquqiy/Qonunlar";
-import VazirlarMahkamasi from "./pages/huquqiy/VazirlarMahkamasi";
 import IchkiHujjatlar from "./pages/huquqiy/IchkiHujjatlar";
 import SavolJavoblar from "./pages/interfaol/SavolJavoblar";
 import DavlatRamzlari from "./pages/interfaol/DavlatRamzlari";
@@ -58,7 +57,6 @@ export default function App() {
           <Route path="/pullik-xizmatlar/murojaat-qadamlari" element={<MurojaatQadamlari />} />
           <Route path="/huquqiy-asos" element={<HuquqiyAsos />} />
           <Route path="/huquqiy-asos/qonunlar" element={<Qonunlar />} />
-          <Route path="/huquqiy-asos/vazirlar-mahkamasi-qarorlari" element={<VazirlarMahkamasi />} />
           <Route path="/huquqiy-asos/ichki-hujjatlar" element={<IchkiHujjatlar />} />
           <Route path="/interfaol-xizmatlar/savol-javoblar" element={<SavolJavoblar />} />
           <Route path="/interfaol-xizmatlar/davlat-ramzlari" element={<DavlatRamzlari />} />

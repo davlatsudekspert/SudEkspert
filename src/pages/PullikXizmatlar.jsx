@@ -1,3 +1,5 @@
+import { EXPERTIZA_TURLARI } from "../data/expertizaTurlari";
+
 export default function PullikXizmatlar() {
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-10 py-16">
@@ -11,7 +13,7 @@ export default function PullikXizmatlar() {
           <div className="w-10 h-10 rounded-full bg-[#13285A] text-white flex items-center justify-center">
             <i className="fa-solid fa-list-ul"></i>
           </div>
-          <h2 className="text-xl font-bold text-[#13285A]">Xizmatlar ro'yxati (Narxlar jadvali)</h2>
+          <h2 className="text-xl font-bold text-[#13285A]">Ekspertiza turlari</h2>
         </div>
         <div className="overflow-x-auto border border-gray-100 rounded-xl shadow-sm">
           <table className="w-full text-sm">
@@ -19,39 +21,19 @@ export default function PullikXizmatlar() {
               <tr className="bg-[#13285A] text-white text-left">
                 <th className="px-5 py-3 font-semibold">№</th>
                 <th className="px-5 py-3 font-semibold">Ekspertiza turi</th>
-                <th className="px-5 py-3 font-semibold">Narxi (so'm)</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-5 py-3 text-gray-500">1</td>
-                <td className="px-5 py-3 text-gray-800">Sud-tibbiy ekspertiza (tan jarohatlari darajasini aniqlash)</td>
-                <td className="px-5 py-3 text-gray-800 font-semibold">300 000</td>
-              </tr>
-              <tr className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-5 py-3 text-gray-500">2</td>
-                <td className="px-5 py-3 text-gray-800">Sud-biologik (DNK) ekspertizasi</td>
-                <td className="px-5 py-3 text-gray-800 font-semibold">850 000</td>
-              </tr>
-              <tr className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-5 py-3 text-gray-500">3</td>
-                <td className="px-5 py-3 text-gray-800">Sud-kimyoviy ekspertiza</td>
-                <td className="px-5 py-3 text-gray-800 font-semibold">450 000</td>
-              </tr>
-              <tr className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-5 py-3 text-gray-500">4</td>
-                <td className="px-5 py-3 text-gray-800">Sud-gistologik ekspertiza</td>
-                <td className="px-5 py-3 text-gray-800 font-semibold">400 000</td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-5 py-3 text-gray-500">5</td>
-                <td className="px-5 py-3 text-gray-800">Tibbiy kriminalistika ekspertizasi (rentgen, MSKT)</td>
-                <td className="px-5 py-3 text-gray-800 font-semibold">550 000</td>
-              </tr>
+              {EXPERTIZA_TURLARI.map((tur, i) => (
+                <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="px-5 py-3 text-gray-500">{i + 1}</td>
+                  <td className="px-5 py-3 text-gray-800">{tur}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <p className="text-xs text-gray-400 mt-3">Narxlar tashkilotning tasdiqlangan tariflari asosida belgilanadi va o'zgarishi mumkin.</p>
+        <p className="text-xs text-gray-400 mt-3">Batafsil ma'lumot uchun filial bilan bog'laning.</p>
       </div>
 
       <div className="mb-14">

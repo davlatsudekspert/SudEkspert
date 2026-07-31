@@ -29,25 +29,6 @@ export default function HuquqiyAsos() {
         <div>
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-full bg-blue-700 text-white flex items-center justify-center">
-              <i className="fa-solid fa-building-columns"></i>
-            </div>
-            <h2 className="text-xl font-bold text-blue-900">Vazirlar Mahkamasi Qarorlari</h2>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="border border-blue-100 rounded-lg p-5 bg-white shadow-sm">
-              <p className="font-semibold text-gray-900 mb-1">Vazirlar Mahkamasining 460-sonli qarori</p>
-              <p className="text-sm text-gray-500">Sud-tibbiy ekspertiza faoliyatini tartibga soluvchi asosiy hujjat.</p>
-            </div>
-            <div className="border border-blue-100 rounded-lg p-5 bg-white shadow-sm">
-              <p className="font-semibold text-gray-900 mb-1">Markaz faoliyatiga oid boshqa maxsus qarorlar</p>
-              <p className="text-sm text-gray-500">Sud-tibbiy ekspertiza sohasini tartibga soluvchi qo'shimcha hukumat qarorlari.</p>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-full bg-blue-700 text-white flex items-center justify-center">
               <i className="fa-solid fa-file-shield"></i>
             </div>
             <h2 className="text-xl font-bold text-blue-900">Ichki buyruqlar va nizomlar</h2>
