@@ -11,7 +11,7 @@ export default function Tuzilma() {
       <div className="flex flex-col items-center">
         <Link
           to="/tuzilma/boshliq"
-          className="bg-blue-800 hover:bg-blue-900 text-white font-bold rounded-lg px-10 py-4 text-center shadow-md transition cursor-pointer"
+          className="bg-[#13285A] hover:bg-blue-900 text-white font-bold rounded-lg px-10 py-4 text-center shadow-md transition cursor-pointer"
         >
           BOSHLIQ
         </Link>
@@ -22,7 +22,7 @@ export default function Tuzilma() {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col items-center">
             <div className="w-px h-8 bg-blue-200 hidden md:block"></div>
-            <div className="bg-blue-700 text-white font-semibold rounded-lg px-5 py-4 text-center text-sm shadow-md w-full">
+            <div className="bg-[#13285A] text-white font-semibold rounded-lg px-5 py-4 text-center text-sm shadow-md w-full">
               Boshliq o'rinbosari – tashkiliy uslubiy bo'limi mudiri
             </div>
 
