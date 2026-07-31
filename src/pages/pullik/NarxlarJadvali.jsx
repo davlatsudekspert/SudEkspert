@@ -61,7 +61,7 @@ export default function NarxlarJadvali() {
       </div>
 
       <p className="text-gray-500 mb-6">
-        Respublika sud-tibbiy ekspertiza markazining Jizzax filiali tomonidan amalga oshiriladigan ekspertiza turlari.
+        Respublika sud-tibbiy ekspertiza markazining Andijon filiali tomonidan amalga oshiriladigan ekspertiza turlari.
       </p>
 
       <div className="overflow-x-auto border border-blue-100 rounded-xl shadow-sm bg-white">
