@@ -1,6 +1,7 @@
 import dmed from "../assets/dmed.webp"
 import mygov from "../assets/mygov.webp"
 import gov from "../assets/gov.webp"
+import logo from "../assets/logo.jpg"
 
 const havolalar = [
   {
@@ -23,8 +24,8 @@ const havolalar = [
   },
   {
     href: "https://forensic.uz",
-    img: null,
-    title: "Sud ekspertiza axborot portali",
+    img: logo,
+    title: "RESPUBLIKA SUD TIBBIY EKSPERTIZA ILMIY-AMALIY MARKAZI",
     desc: "forensic.uz",
   },
 ];
@@ -121,7 +122,7 @@ export default function Footer() {
                       {h.img ? (
                         <img src={h.img} alt="" className="w-full h-full object-contain" />
                       ) : (
-                        <i className="fa-solid fa-scale-balanced text-2xl text-[#13285A]"></i>
+                        <i className="fas-fa fa-brend"></i>
                       )}
                     </div>
                     <div>

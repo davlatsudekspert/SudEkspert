@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { loadNews, addNews } from "../data/newsStore";
+import { Link } from "react-router-dom";
+import { loadNews, addNews, deleteNews } from "../data/newsStore";
 
 const MAX_IMAGE_MB = 5;
 const MAX_IMAGES = 3;
@@ -20,12 +21,11 @@ async function digest(text) {
 export default function Yangiliklar() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState(null);
   const [toast, setToast] = useState(null);
   const [dragActive, setDragActive] = useState(false);
 
-  const dialogRef = useRef(null);
   const addDialogRef = useRef(null);
+  const manageDialogRef = useRef(null);
   const aliDialogRef = useRef(null);
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
@@ -44,6 +44,7 @@ export default function Yangiliklar() {
   const [aliAttempts, setAliAttempts] = useState(0);
   const [aliLockedUntil, setAliLockedUntil] = useState(null);
   const [aliChecking, setAliChecking] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     loadNews().then((data) => {
@@ -57,11 +58,6 @@ export default function Yangiliklar() {
     const t = setTimeout(() => setToast(null), 2800);
     return () => clearTimeout(t);
   }, [toast]);
-
-  const openModal = (item) => {
-    setSelected(item);
-    dialogRef.current?.showModal();
-  };
 
   const resetForm = () => {
     setTitle("");
@@ -97,8 +93,7 @@ export default function Yangiliklar() {
       setAliAttempts(0);
       setAliLockedUntil(null);
       aliDialogRef.current?.close();
-      resetForm();
-      addDialogRef.current?.showModal();
+      manageDialogRef.current?.showModal();
       setAliValue("");
       setAliError("");
     } else {
@@ -211,6 +206,21 @@ export default function Yangiliklar() {
     }
   };
 
+  const handleDelete = async (item) => {
+    if (!window.confirm(`"${item.title}" yangiligini o'chirishni tasdiqlaysizmi?`)) return;
+    setDeletingId(item.id);
+    try {
+      await deleteNews(item);
+      const data = await loadNews();
+      setNews(data);
+      setToast({ type: "success", text: "Yangilik o'chirildi" });
+    } catch {
+      setToast({ type: "error", text: "Yangilik o'chirishda xatolik yuz berdi" });
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 md:px-10 py-16 flex items-center justify-center min-h-[50vh]">
@@ -264,48 +274,18 @@ export default function Yangiliklar() {
                 <p className="text-sm text-gray-500 mb-3 line-clamp-2">{item.description}</p>
                 <div className="flex items-center justify-between">
                   <p className="text-xs text-gray-400"><i className="fa-regular fa-calendar mr-1"></i>{item.date}</p>
-                  <button
-                    onClick={() => openModal(item)}
+                  <Link
+                    to={`/yangiliklar/${item.id}`}
                     className="text-xs font-semibold text-white bg-[#13285A] rounded-full px-4 py-1.5 hover:opacity-90 transition"
                   >
                     Batafsil
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
       )}
-
-      <dialog ref={dialogRef} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box p-0 overflow-hidden">
-          {selected && (
-            <>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-                {[selected.image, selected.image2, selected.image3].filter(Boolean).map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={`${selected.title} ${i + 1}`}
-                    className={`w-full h-40 object-cover ${i === 0 ? "col-span-2 md:col-span-3 h-56" : ""}`}
-                  />
-                ))}
-              </div>
-              {selected.video && (
-                <video src={selected.video} controls className="w-full bg-black" />
-              )}
-              <div className="p-6">
-                <p className="text-xs text-gray-400 mb-2"><i className="fa-regular fa-calendar mr-1"></i>{selected.date}</p>
-                <h3 className="text-xl font-bold text-[#13285A] mb-3">{selected.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{selected.body}</p>
-              </div>
-            </>
-          )}
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
 
       <dialog ref={aliDialogRef} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box max-w-sm">
@@ -343,6 +323,58 @@ export default function Yangiliklar() {
               </button>
             </div>
           </form>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      <dialog ref={manageDialogRef} className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-[#13285A]">
+              <i className="fa-solid fa-gear mr-2"></i>Yangiliklarni boshqarish
+            </h3>
+            <button
+              onClick={() => manageDialogRef.current?.close()}
+              className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center transition"
+              title="Yopish"
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <button
+            onClick={() => { manageDialogRef.current?.close(); resetForm(); addDialogRef.current?.showModal(); }}
+            className="w-full flex items-center justify-center gap-2 bg-[#13285A] text-white rounded-lg px-4 py-2.5 text-sm font-semibold hover:opacity-90 active:scale-95 transition mb-4"
+          >
+            <i className="fa-solid fa-plus"></i>
+            Yangi yangilik qo'shish
+          </button>
+
+          <div className="flex flex-col gap-2 max-h-80 overflow-y-auto pr-1">
+            {news.length === 0 ? (
+              <p className="text-center text-sm text-gray-400 py-8">Hozircha yangiliklar mavjud emas</p>
+            ) : (
+              news.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center gap-3 border border-gray-100 rounded-lg p-2"
+                >
+                  <img src={item.image} alt="" className="w-14 h-12 object-cover rounded-md flex-shrink-0" />
+                  <p className="text-sm font-medium text-gray-800 flex-1 line-clamp-2">{item.title}</p>
+                  <button
+                    onClick={() => handleDelete(item)}
+                    disabled={deletingId === item.id}
+                    className="w-9 h-9 rounded-lg bg-red-50 hover:bg-red-600 text-red-500 hover:text-white flex items-center justify-center transition disabled:opacity-50 flex-shrink-0"
+                    title="O'chirish"
+                  >
+                    <i className={`fa-solid ${deletingId === item.id ? "fa-spinner fa-spin" : "fa-trash-can"}`}></i>
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
@@ -455,12 +487,12 @@ export default function Yangiliklar() {
                 placeholder="Sarlavha"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                maxLength={400}
+                maxLength={500}
                 className={`input input-bordered w-full ${errors.title ? "input-error" : ""}`}
               />
               <div className="flex items-center justify-between mt-1">
                 {errors.title ? <p className="text-xs text-red-500">{errors.title}</p> : <span></span>}
-                <p className="text-xs text-gray-300">{title.length}/400</p>
+                <p className="text-xs text-gray-300">{title.length}/500</p>
               </div>
             </div>
 
@@ -470,12 +502,10 @@ export default function Yangiliklar() {
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 rows="4"
-                maxLength={1000}
                 className={`textarea textarea-bordered w-full ${errors.desc ? "textarea-error" : ""}`}
               ></textarea>
               <div className="flex items-center justify-between mt-1">
                 {errors.desc ? <p className="text-xs text-red-500">{errors.desc}</p> : <span></span>}
-                <p className="text-xs text-gray-300">{desc.length}/1000</p>
               </div>
             </div>
 

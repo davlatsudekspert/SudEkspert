@@ -17,13 +17,10 @@ export default function IchkiHujjatlar() {
 
       <div className="flex flex-col gap-3">
         <div className="border border-blue-100 rounded-lg p-5 bg-white shadow-sm">
-          <p className="font-semibold text-gray-900 mb-1">Markazning nizomi</p>
-          <p className="text-sm text-gray-500">Markaz o'z faoliyatini qanday yuritishini belgilovchi hujjat.</p>
+          <p className="font-semibold text-gray-900 mb-1">RESPUBLIKA SUD TIBBIY EKSPERTIZA ILMIY-AMALIY MARKAZI ANDIJON FILIALINING NIZOMI</p>
+          <p className="text-sm text-gray-500">Respublika sud tibbiy ekspertiza ilmiy-amaliy markazi Andijon filialining o'z faoliyatini qanday yuritishini belgilovchi hujjat.</p>
         </div>
-        <div className="border border-blue-100 rounded-lg p-5 bg-white shadow-sm">
-          <p className="font-semibold text-gray-900 mb-1">Ekspertiza tayinlash tartibi</p>
-          <p className="text-sm text-gray-500">Kimlar, qanday tartibda va qancha muddatda ekspertiza tayinlashi mumkinligi haqida ma'lumot.</p>
-        </div>
+        
       </div>
     </div>
   );

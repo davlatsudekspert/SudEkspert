@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import FilialTarixi from "./pages/FilialTarixi";
 import Tuzilma from "./pages/Tuzilma";
 import Yangiliklar from "./pages/Yangiliklar";
+import YangilikTafsilotlari from "./pages/YangilikTafsilotlari";
 import PullikXizmatlar from "./pages/PullikXizmatlar";
 import HuquqiyAsos from "./pages/HuquqiyAsos";
 import BogLanish from "./pages/BogLanish";
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/filial-tarixi" element={<FilialTarixi />} />
           <Route path="/tuzilma" element={<Tuzilma />} />
           <Route path="/yangiliklar" element={<Yangiliklar />} />
+          <Route path="/yangiliklar/:id" element={<YangilikTafsilotlari />} />
           <Route path="/pullik-xizmatlar" element={<PullikXizmatlar />} />
           <Route path="/pullik-xizmatlar/ekspertiza-turlari" element={<EkspertizaTurlari />} />
           <Route path="/pullik-xizmatlar/tolov-tartibi" element={<TolovTartibi />} />
