@@ -61,10 +61,6 @@ const faqs = [
     q: "Sud ekspertizasi to'g'risidagi qonun hujjatlarini buzganlik uchun javobgarlik bormi?",
     a: "Sud ekspertizasi to'g'risidagi qonun hujjatlarini buzganlikda aybdor shaxslar belgilangan tartibda javobgar bo'ladi.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 31-moddasi)",
   },
-  {
-    q: "Sud-fonografiya ekspertizasi qanday ahamiyatga ega?",
-    a: "Poraxo'rlik, korrupsiya, reket, ta'magirlik, terrorizm kabi jinoyatlarni fosh etishda sud fonografiya ekspertizasi muhim ahamiyatga ega.",
-  },
 ];
 
 export default function SavolJavoblar() {

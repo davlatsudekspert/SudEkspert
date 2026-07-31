@@ -14,7 +14,7 @@ const hoverMenus = {
     label: "PULLIK XIZMATLAR",
     to: "/pullik-xizmatlar",
     items: [
-      { title: "Narxlar jadvali", desc: "Ekspertiza turlari va belgilangan narxlar", to: "/pullik-xizmatlar/narxlar-jadvali" },
+      { title: "Ekspertiza turlari", desc: "Filial tomonidan ko'rsatiladigan ekspertiza turlari", to: "/pullik-xizmatlar/ekspertiza-turlari" },
       { title: "To'lov tartibi", desc: "Bank rekvizitlari va elektron to'lov tizimlari", to: "/pullik-xizmatlar/tolov-tartibi" },
       { title: "Murojaat qadamlari", desc: "Kerakli hujjatlar va qayerga murojaat qilish", to: "/pullik-xizmatlar/murojaat-qadamlari" },
     ],

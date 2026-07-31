@@ -45,7 +45,7 @@ const turlar = [
   "Tuxumdonlar ultratovush tekshiruvi transvaginal follikulometriya maqsadida",
 ];
 
-export default function NarxlarJadvali() {
+export default function EkspertizaTurlari() {
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-10 py-16">
       <Link to="/" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:underline mb-8">

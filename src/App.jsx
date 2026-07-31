@@ -10,7 +10,7 @@ import PullikXizmatlar from "./pages/PullikXizmatlar";
 import HuquqiyAsos from "./pages/HuquqiyAsos";
 import BogLanish from "./pages/BogLanish";
 
-import NarxlarJadvali from "./pages/pullik/NarxlarJadvali";
+import EkspertizaTurlari from "./pages/pullik/EkspertizaTurlari";
 import TolovTartibi from "./pages/pullik/TolovTartibi";
 import MurojaatQadamlari from "./pages/pullik/MurojaatQadamlari";
 import Qonunlar from "./pages/huquqiy/Qonunlar";
@@ -52,7 +52,7 @@ export default function App() {
           <Route path="/tuzilma" element={<Tuzilma />} />
           <Route path="/yangiliklar" element={<Yangiliklar />} />
           <Route path="/pullik-xizmatlar" element={<PullikXizmatlar />} />
-          <Route path="/pullik-xizmatlar/narxlar-jadvali" element={<NarxlarJadvali />} />
+          <Route path="/pullik-xizmatlar/ekspertiza-turlari" element={<EkspertizaTurlari />} />
           <Route path="/pullik-xizmatlar/tolov-tartibi" element={<TolovTartibi />} />
           <Route path="/pullik-xizmatlar/murojaat-qadamlari" element={<MurojaatQadamlari />} />
           <Route path="/huquqiy-asos" element={<HuquqiyAsos />} />
