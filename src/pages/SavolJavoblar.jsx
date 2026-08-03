@@ -94,6 +94,28 @@ export default function SavolJavoblar() {
           </details>
         ))}
       </div>
+
+      <div className="mt-10 border border-blue-100 bg-blue-50 rounded-xl p-6 md:p-8 text-center">
+        <p className="font-bold text-blue-900 mb-2">Savolingizga javob topolmadingizmi?</p>
+        <p className="text-sm text-gray-600 mb-5">
+          "Onlayn murojaat yuborish" bo'limi orqali savolingizni yo'llang yoki "Bog'lanish" sahifasidagi
+          telefon va manzil orqali murojaat qiling.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link
+            to="/interfaol-xizmatlar/onlayn-murojaat"
+            className="bg-[#13285A] text-white rounded-full px-6 py-2.5 text-sm font-semibold hover:opacity-90 transition"
+          >
+            <i className="fa-solid fa-paper-plane mr-2"></i>Savol yo'llash
+          </Link>
+          <Link
+            to="/boglanish"
+            className="border border-[#13285A] text-[#13285A] rounded-full px-6 py-2.5 text-sm font-semibold hover:bg-white transition"
+          >
+            Bog'lanish
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

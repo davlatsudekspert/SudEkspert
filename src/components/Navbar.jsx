@@ -6,6 +6,7 @@ const simpleLinks = [
   { label: "FILIAL TARIXI", to: "/filial-tarixi" },
   { label: "TUZILMA", to: "/tuzilma" },
   { label: "YANGILIKLAR", to: "/yangiliklar" },
+  { label: "SAVOL-JAVOBLAR", to: "/savol-javoblar" },
 ];
 
 const hoverMenus = {
@@ -24,15 +25,18 @@ const hoverMenus = {
     items: [
       { title: "Qonunlar", desc: "Sud ekspertizasi va sog'liqni saqlash to'g'risidagi qonunlar", to: "/huquqiy-asos/qonunlar" },
       { title: "Ichki hujjatlar", desc: "Markaz nizomi va ekspertiza tayinlash tartibi", to: "/huquqiy-asos/ichki-hujjatlar" },
+      { title: "Davlat ramzlari", desc: "Madhiya, Gerb, Bayroq", to: "/huquqiy-asos/davlat-ramzlari" },
+      { title: "Akkreditatsiya", desc: "Akkreditatsiya bo'yicha ma'lumot", to: "/huquqiy-asos/akkreditatsiya" },
     ],
   },
   interfaol: {
     label: "INTERFAOL XIZMATLAR",
-    to: "/interfaol-xizmatlar/savol-javoblar",
+    to: "/interfaol-xizmatlar/onlayn-murojaat",
     items: [
-      { title: "Savol-javoblar", desc: "Ko'p beriladigan savollarga javoblar", to: "/interfaol-xizmatlar/savol-javoblar" },
-      { title: "Davlat ramzlari", desc: "Madhiya, Gerb, Bayroq", to: "/interfaol-xizmatlar/davlat-ramzlari" },
-      { title: "Akkreditatsiya", desc: "Akkreditatsiya bo'yicha ma'lumot", to: "/interfaol-xizmatlar/akkreditatsiya" },
+      { title: "Onlayn murojaat yuborish", desc: "Virtual qabulxona — elektron murojaat", to: "/interfaol-xizmatlar/onlayn-murojaat" },
+      { title: "Murojaat holatini tekshirish", desc: "Murojaat raqami (ID) orqali", to: "/interfaol-xizmatlar/murojaat-holati" },
+      { title: "Qabulga onlayn yozilish", desc: "Fuqarolarni qabul qilishga yozilish", to: "/interfaol-xizmatlar/qabulga-yozilish" },
+      { title: "Xizmat narxini hisoblash", desc: "Ekspertiza narxini hisoblash kalkulyatori", to: "/interfaol-xizmatlar/xizmat-narxi" },
     ],
   },
 };
