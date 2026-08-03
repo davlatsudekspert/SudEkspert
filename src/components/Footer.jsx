@@ -141,7 +141,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-6 md:px-10 py-4 text-xs text-white/60">
           <p>© 2026 Respublika Sud Tibbiy Ekspertiza Ilmiy-Amaliy Markazi Andijon filiali. Barcha huquqlar himoyalangan.</p>
           <div className="flex gap-4">
-            <a href="https://maps.app.goo.gl/c9m8V7zQaLmHcKai8" className="hover:text-white">Sayt xaritasi</a>
+            <a href="https://t.me/developer_alii" className="hover:text-white">Created by:Ali</a>
           </div>
         </div>
       </div>
