@@ -22,7 +22,18 @@ export async function deleteImage(url) {
   const fileName = url.split("/").pop();
   if (!fileName) return;
   await supabase.storage.from(BUCKET).remove([fileName]);
-}export async function loadNews() {
+}function sortDate(item) {
+  const d = item?.date;
+  if (typeof d === "string") {
+    const m = d.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+    if (m) return new Date(+m[3], +m[2] - 1, +m[1]).getTime();
+    const iso = new Date(d);
+    if (!Number.isNaN(iso.getTime())) return iso.getTime();
+  }
+  return item?.id || 0;
+}
+
+export async function loadNews() {
   const { data, error } = await supabase
     .from("news")
     .select("*")
@@ -32,7 +43,7 @@ export async function deleteImage(url) {
     console.error("Yangiliklarni yuklashda xatolik:", error);
     return [];
   }
-  return data;
+  return (data || []).sort((a, b) => sortDate(b) - sortDate(a) || b.id - a.id);
 }
 
 export async function saveNews(news) {

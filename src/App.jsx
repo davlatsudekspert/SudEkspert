@@ -22,7 +22,6 @@ import SavolJavoblar from "./pages/SavolJavoblar";
 import OnlaynMurojaat from "./pages/interfaol/OnlaynMurojaat";
 import MurojaatHolati from "./pages/interfaol/MurojaatHolati";
 import QabulgaYozilish from "./pages/interfaol/QabulgaYozilish";
-import XizmatNarxi from "./pages/interfaol/XizmatNarxi";
 
 import TashkiliyUslubiyBolim from "./pages/bolimlar/TashkiliyUslubiyBolim";
 import SudAmbulatoriyaBolimi from "./pages/bolimlar/SudAmbulatoriyaBolimi";
@@ -70,7 +69,6 @@ export default function App() {
           <Route path="/interfaol-xizmatlar/onlayn-murojaat" element={<OnlaynMurojaat />} />
           <Route path="/interfaol-xizmatlar/murojaat-holati" element={<MurojaatHolati />} />
           <Route path="/interfaol-xizmatlar/qabulga-yozilish" element={<QabulgaYozilish />} />
-          <Route path="/interfaol-xizmatlar/xizmat-narxi" element={<XizmatNarxi />} />
           <Route path="/boglanish" element={<BogLanish />} />
 
           <Route path="/tuzilma/tashkiliy-uslubiy-bolim" element={<TashkiliyUslubiyBolim />} />

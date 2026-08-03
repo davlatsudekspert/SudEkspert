@@ -184,7 +184,8 @@ export default function Yangiliklar() {
   const handleAddNews = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    const today = new Date().toLocaleDateString("uz-UZ", { year: "numeric", month: "long", day: "numeric" });
+    const now = new Date();
+    const today = `${String(now.getDate()).padStart(2, "0")}.${String(now.getMonth() + 1).padStart(2, "0")}.${now.getFullYear()}`;
     const item = {
       title: title.trim(),
       desc: desc.trim(),

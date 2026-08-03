@@ -36,7 +36,6 @@ const hoverMenus = {
       { title: "Onlayn murojaat yuborish", desc: "Virtual qabulxona — elektron murojaat", to: "/interfaol-xizmatlar/onlayn-murojaat" },
       { title: "Murojaat holatini tekshirish", desc: "Murojaat raqami (ID) orqali", to: "/interfaol-xizmatlar/murojaat-holati" },
       { title: "Qabulga onlayn yozilish", desc: "Fuqarolarni qabul qilishga yozilish", to: "/interfaol-xizmatlar/qabulga-yozilish" },
-      { title: "Xizmat narxini hisoblash", desc: "Ekspertiza narxini hisoblash kalkulyatori", to: "/interfaol-xizmatlar/xizmat-narxi" },
     ],
   },
 };
