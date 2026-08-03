@@ -13,7 +13,7 @@ export default function Tuzilma() {
           to="/tuzilma/boshliq"
           className="bg-[#13285A] hover:bg-blue-900 text-white font-bold rounded-lg px-10 py-4 text-center shadow-md transition cursor-pointer"
         >
-          BOSHLIQ
+          FILIAL BOSHLIG'I
         </Link>
 
         <div className="w-px h-8 bg-blue-200"></div>
