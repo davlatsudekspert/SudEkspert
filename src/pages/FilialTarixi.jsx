@@ -17,7 +17,7 @@ const boLimlar = [
   {
     icon: "fa-solid fa-users",
     title: "Bugungi kun salohiyati",
-    text: "Hozirgi kunda RSTEIAM Andijon filiali viloyatning 3,2 milliondan ortiq aholisiga xizmat ko'rsatadi. Filial tarkibida morfologiya, sud-tibbiy ambulatoriya, sud-biologiya, sud-kimyo, tibbiy kriminalistika kabi qator bo'limlar hamda Asaka, Shahrixon, Qo'rg'ontepa va Izboskan tumanlararo bo'linmalari muvaffaqiyatli faoliyat yuritmoqda. Muassasada 140 dan ortiq shtat birligi mavjud bo'lib, o'z kasbining yetuk mutaxassislari, oliy va birinchi toifali ekspert-shifokorlar mehnat qilmoqda.",
+    text: "Hozirgi kunda RSTEIAM Andijon filiali viloyatning 3,5 milliondan ortiq aholisiga xizmat ko'rsatadi. Filial tarkibida morfologiya, sud-tibbiy ambulatoriya, sud-biologiya, sud-kimyo, tibbiy kriminalistika kabi qator bo'limlar hamda Asaka, Shahrixon, Qo'rg'ontepa va Izboskan tumanlararo bo'linmalari muvaffaqiyatli faoliyat yuritmoqda. Muassasada 140 dan ortiq shtat birligi mavjud bo'lib, o'z kasbining yetuk mutaxassislari, oliy va birinchi toifali ekspert-shifokorlar mehnat qilmoqda.",
   },
   {
     icon: "fa-solid fa-rocket",
