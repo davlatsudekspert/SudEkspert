@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import emailjs from "@emailjs/browser";
-
-const SERVICE_ID = "service_46g348k";
-const TEMPLATE_ID = "template_m541d3w";
-const PUBLIC_KEY = "vtP660YPBtX-PO-Y_";
+import { sendTelegramMessage } from "../../lib/telegram";
 
 const QABUL_VAQTLARI = [
   "09:00",
@@ -58,15 +54,8 @@ export default function QabulgaYozilish() {
     if (!validate()) return;
     setSending(true);
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        {
-          from_name: form.name,
-          from_number: form.phone,
-          message: `Qabulga yozilish: ${form.date} soat ${form.time}. Maqsad: ${form.purpose}`,
-        },
-        { publicKey: PUBLIC_KEY }
+      await sendTelegramMessage(
+        `Qabulga yozilish\nIsm: ${form.name}\nTelefon: ${form.phone}\nSana: ${form.date}\nVaqt: ${form.time}\nMaqsad: ${form.purpose}`
       );
       setStatus({
         type: "success",

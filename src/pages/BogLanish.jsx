@@ -1,9 +1,5 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
-
-const SERVICE_ID = "service_46g348k";
-const TEMPLATE_ID = "template_m541d3w";
-const PUBLIC_KEY = "vtP660YPBtX-PO-Y_";
+import { sendTelegramMessage } from "../lib/telegram";
 
 export default function BogLanish() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
@@ -32,15 +28,8 @@ export default function BogLanish() {
     if (!validate()) return;
     setSending(true);
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        {
-          from_name: form.name,
-          from_number: form.phone,
-          message: form.message,
-        },
-        { publicKey: PUBLIC_KEY }
+      await sendTelegramMessage(
+        `Bog'lanish\nIsm: ${form.name}\nTelefon: ${form.phone}\n${form.email ? `Email: ${form.email}\n` : ""}Xabar: ${form.message}`
       );
       setStatus({ type: "success", text: "Xabaringiz muvaffaqiyatli yuborildi. Tez orada bog'lanamiz!" });
       setForm({ name: "", phone: "", email: "", message: "" });

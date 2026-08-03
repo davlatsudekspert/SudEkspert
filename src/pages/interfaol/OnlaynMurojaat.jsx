@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import emailjs from "@emailjs/browser";
-
-const SERVICE_ID = "service_46g348k";
-const TEMPLATE_ID = "template_m541d3w";
-const PUBLIC_KEY = "vtP660YPBtX-PO-Y_";
+import { sendTelegramMessage } from "../../lib/telegram";
 
 const MURQ_TURLARI = [
   "Savol",
@@ -64,15 +60,8 @@ export default function OnlaynMurojaat() {
 
     setSending(true);
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        {
-          from_name: form.name,
-          from_number: form.phone,
-          message: `[${id}] (${form.type}) ${form.message}`,
-        },
-        { publicKey: PUBLIC_KEY }
+      await sendTelegramMessage(
+        `Onlayn murojaat\nID: ${id}\nIsm: ${form.name}\nTelefon: ${form.phone}\nTuri: ${form.type}\nMatn: ${form.message}`
       );
       const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...list, item]));
