@@ -29,7 +29,7 @@ export default function BogLanish() {
     setSending(true);
     try {
       await sendTelegramMessage(
-        `Bog'lanish\nIsm: ${form.name}\nTelefon: ${form.phone}\n${form.email ? `Email: ${form.email}\n` : ""}Xabar: ${form.message}`
+        `<b>Bog'lanish formasi</b>\n──────────────\nIsm: <b>${form.name}</b>\nTelefon: <b>${form.phone}</b>\n${form.email ? `Email: ${form.email}\n` : ""}──────────────\nXabar: ${form.message}\n──────────────\nVaqt: ${new Date().toLocaleString("uz-UZ")}`
       );
       setStatus({ type: "success", text: "Xabaringiz muvaffaqiyatli yuborildi. Tez orada bog'lanamiz!" });
       setForm({ name: "", phone: "", email: "", message: "" });

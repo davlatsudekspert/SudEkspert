@@ -55,7 +55,7 @@ export default function QabulgaYozilish() {
     setSending(true);
     try {
       await sendTelegramMessage(
-        `Qabulga yozilish\nIsm: ${form.name}\nTelefon: ${form.phone}\nSana: ${form.date}\nVaqt: ${form.time}\nMaqsad: ${form.purpose}`
+        `<b>Qabulga yozilish</b>\n──────────────\nIsm: <b>${form.name}</b>\nTelefon: <b>${form.phone}</b>\nSana: <b>${form.date}</b>\nVaqt: <b>${form.time}</b>\n──────────────\nMaqsad: ${form.purpose}\n──────────────\nVaqt: ${new Date().toLocaleString("uz-UZ")}`
       );
       setStatus({
         type: "success",

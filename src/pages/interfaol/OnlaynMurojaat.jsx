@@ -61,7 +61,7 @@ export default function OnlaynMurojaat() {
     setSending(true);
     try {
       await sendTelegramMessage(
-        `Onlayn murojaat\nID: ${id}\nIsm: ${form.name}\nTelefon: ${form.phone}\nTuri: ${form.type}\nMatn: ${form.message}`
+        `<b>Onlayn murojaat</b>\n──────────────\nMurojaat raqami: <b>${id}</b>\nIsm: <b>${form.name}</b>\nTelefon: <b>${form.phone}</b>\nMurojaat turi: ${form.type}\n──────────────\nMatn: ${form.message}\n──────────────\nVaqt: ${new Date().toLocaleString("uz-UZ")}`
       );
       const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...list, item]));
