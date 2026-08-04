@@ -16,7 +16,7 @@ export default function TezkorEkspertBolimi() {
       </div>
 
       <div className="bg-white border border-blue-100 rounded-xl shadow-sm p-6 md:p-8">
-        <p className="text-gray-600 leading-relaxed">Hodisa joylariga tezkor chiqishni ta'minlaydi, navbatchi ekspertlar faoliyatini tashkil etadi, baxtsiz hodisalar haqidagi ma'lumotlarni qabul qiladi hamda maxsus transport xizmati ishini muvofiqlashtiradi.</p>
+        <p className="text-gray-600 leading-relaxed">Hodisa joylariga tezkor chiqishni ta'minlaydi, navbatchi ekspertlar faoliyatini tashkil etadi, baxtsiz hodisalar haqidagi ma'lumotlarni qabul qiladi hamda sud-tibbiy ekspertiza tezkor guruhini voqea joyiga zudlik bilan yetib borishini muvofiqlashtiradi.</p>
       </div>
     </div>
   );
