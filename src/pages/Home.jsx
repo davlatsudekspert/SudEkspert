@@ -28,7 +28,7 @@ export default function Home() {
           <img
             src={badge35}
             alt="O'zbekiston Mustaqilligining 35 yilligi"
-            className="w-50 h-50 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 object-contain drop-shadow-2xl shrink-0 md:mr-[60px]"
+            className="w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-100 lg:h-100 object-contain drop-shadow-2xl shrink-0 md:mr-[60px]"
           />
         </div>
       </div>
