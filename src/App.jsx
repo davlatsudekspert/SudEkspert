@@ -149,9 +149,7 @@ export default function App() {
               className="inline-flex whitespace-nowrap text-base sm:text-xl font-bold text-sky-200 items-center gap-2"
               style={{ animation: "marquee-once 20s linear infinite" }}
             >
-    
-              O'zbekiston Respublikasi Mustaqilligining 35 yilligi muborak bo'lsin! YAGONA VATAN, YAGONA XALQ BO‘LIB,
-YANGI HAYOT VA KELAJAK YARATAMIZ! Yurtimiz osmoni hamisha musaffo, mustaqilligimiz abadiy bo'lsin!
+              O‘ZBEKISTON RESPUBLIKASI MUSTAQILLIGINING 35 YILLIGI MUBORAK BO‘LSIN! YAGONA VATAN, YAGONA XALQ BO‘LIB, YANGI HAYOT VA KELAJAK YARATAMIZ!
             </span>
           </div>
         </div>
