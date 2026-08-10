@@ -147,9 +147,9 @@ export default function App() {
           <div className="py-2 relative w-full">
             <span
               className="inline-flex whitespace-nowrap text-base sm:text-xl font-bold text-sky-200 items-center gap-2"
-              style={{ animation: "marquee-once 13s linear infinite" }}
+              style={{ animation: "marquee-once 20s linear infinite" }}
             >
-              <i className="fa-solid fa-star text-amber-300 text-xs"></i>
+    
               O'zbekiston Respublikasi Mustaqilligining 35 yilligi muborak bo'lsin! Yurtimiz osmoni hamisha musaffo, mustaqilligimiz abadiy bo'lsin!
             </span>
           </div>

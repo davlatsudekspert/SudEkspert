@@ -21,14 +21,14 @@ export default function Home() {
         style={{ backgroundImage: `url(${buildingImg})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b1c3f]/75 via-[#0b1c3f]/55 to-[#0b1c3f]/85"></div>
-        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-6">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full flex flex-col md:flex-row items-center justify-around md:justify-between gap-9npm ">
           <h1 className="ml-0 md:ml-[60px] lg:ml-[100px] text-center md:text-left text-2xl sm:text-2xl md:text-[43px] font-extrabold text-blue-200 max-w-2xl leading-tight uppercase">
             Adolat, xolislik va ilmiylik — faoliyatimiz mezonidir
           </h1>
           <img
             src={badge35}
             alt="O'zbekiston Mustaqilligining 35 yilligi"
-            className="w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-100 lg:h-100 object-contain drop-shadow-2xl shrink-0 md:mr-[60px]"
+            className="w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-100 lg:h-100 object-contain drop-shadow-2xl shrink-0 md:mr-[60px] rotate-[2deg]"
           />
         </div>
       </div>
