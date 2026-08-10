@@ -16,12 +16,12 @@ export default function Home() {
   return (
     <div>
       <div
-        className="relative h-[380px] md:h-[440px] flex items-center overflow-hidden bg-cover bg-center"
+        className="relative min-h-[340px] md:h-[440px] flex items-center overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${buildingImg})` }}
       >
-        <div className="absolute inset-0 bg-[#0b1c3f]/50"></div>
-        <div className="relative max-w-7xl mx-auto px-6 md:px-10 w-full">
-          <h1 className="ml-[160px] items-center flex justify-center text-center text-3xl md:text-5xl font-extrabold text-blue-200 max-w-2xl leading-tight uppercase">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b1c3f]/75 via-[#0b1c3f]/55 to-[#0b1c3f]/85"></div>
+        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full">
+          <h1 className="ml-[60px] lg:ml-[270px] text-center text-2xl sm:text-2xl md:text-[43px] font-extrabold text-blue-200 max-w-2xl leading-tight uppercase">
             Adolat, xolislik va ilmiylik — faoliyatimiz mezonidir
           </h1>
         </div>
