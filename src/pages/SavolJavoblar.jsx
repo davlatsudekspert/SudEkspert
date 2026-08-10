@@ -46,10 +46,6 @@ const faqs = [
     a: "Qonuniylik, inson huquq va erkinliklariga rioya etilishi, sud ekspertining mustaqilligi, sud-ekspert tekshirishlarining xolisligi, har tomonlamaligi va to'liqligi hamda kasbiy sirni saqlash sud-ekspertlik faoliyatining asosiy prinsiplaridir.\n\n(O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonuni 5-moddasi)",
   },
   {
-    q: "Sud eksperti sifatida kimlar ishtirok etishi mumkin?",
-    a: "Sud eksperti sifatida davlat sud eksperti, boshqa tashkilot xodimi yoki boshqa jismoniy shaxs ishtirok etishi mumkin.\n\nBoshqa tashkilot xodimi sud ekspertizasini uni tayinlagan organ (shaxs) tomonidan mazkur tashkilotga berilgan topshiriqni bajarish tartibida o'tkazadi.\n\nFuqarolik, iqtisodiy, jinoyat (shu jumladan, tergovga qadar tekshiruv materiallari), ma'muriy huquqbuzarlik to'g'risidagi ishda sud eksperti sifatida ishtirok etish uchun jalb etilgan boshqa jismoniy shaxs biron-bir davlat sud-ekspertiza muassasasi shtatida turmaydi va sud ekspertizasini uni tayinlagan organning (shaxsning) topshirig'ini bajarish tartibida o'tkazadi.\n\nBelgilangan tartibda muomalaga layoqatsiz yoki muomala layoqati cheklangan deb topilgan shaxslar, shuningdek qasddan sodir etgan jinoyatlari uchun sudlanganlik holati tugallanmagan yoki sudlanganligi olib tashlanmagan shaxslar sud eksperti sifatida jalb etilishi mumkin emas. Shaxsning sud eksperti sifatida ishtirok etishini istisno etadigan boshqa holatlar protsessual qonunda nazarda tutiladi.",
-  },
-  {
     q: "Sud ekspertizasini o'tkazishga nimalar asos hisoblanadi?",
     a: "O'zbekiston Respublikasi \"SUD EKSPERTIZASI TO'G'RISIDA\"gi Qonunining 32-moddasiga ko'ra, tergovga qadar tekshiruvni amalga oshiruvchi organ mansabdor shaxsining, surishtiruvchining, tergovchining, prokurorning yoki sudyaning qarori, sudning ajrimi sud ekspertizasini o'tkazish asoslaridir.",
   },
