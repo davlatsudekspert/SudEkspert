@@ -58,6 +58,15 @@ body {
   }
 }
 
+@keyframes marquee-once {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

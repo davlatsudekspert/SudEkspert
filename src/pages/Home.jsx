@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import buildingImg from "../assets/building.jpg";
+import badge35 from "../assets/mustaqillik-35.png";
 import { loadNews } from "../data/newsStore";
 
 export default function Home() {
@@ -20,10 +21,15 @@ export default function Home() {
         style={{ backgroundImage: `url(${buildingImg})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b1c3f]/75 via-[#0b1c3f]/55 to-[#0b1c3f]/85"></div>
-        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full">
-          <h1 className="ml-[60px] lg:ml-[270px] text-center text-2xl sm:text-2xl md:text-[43px] font-extrabold text-blue-200 max-w-2xl leading-tight uppercase">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-6">
+          <h1 className="ml-0 md:ml-[60px] lg:ml-[100px] text-center md:text-left text-2xl sm:text-2xl md:text-[43px] font-extrabold text-blue-200 max-w-2xl leading-tight uppercase">
             Adolat, xolislik va ilmiylik — faoliyatimiz mezonidir
           </h1>
+          <img
+            src={badge35}
+            alt="O'zbekiston Mustaqilligining 35 yilligi"
+            className="w-50 h-50 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56 object-contain drop-shadow-2xl shrink-0 md:mr-[60px]"
+          />
         </div>
       </div>
 

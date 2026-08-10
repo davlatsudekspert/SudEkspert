@@ -54,6 +54,40 @@ function ScrollToTop() {
   return null;
 }
 
+const pageTitles = {
+  "/": "Bosh sahifa",
+  "/filial-tarixi": "Filial tarixi",
+  "/tuzilma": "Tuzilma",
+  "/yangiliklar": "Yangiliklar",
+  "/pullik-xizmatlar": "Pullik xizmatlar",
+  "/pullik-xizmatlar/ekspertiza-turlari": "Ekspertiza turlari",
+  "/pullik-xizmatlar/tolov-tartibi": "To'lov tartibi",
+  "/pullik-xizmatlar/murojaat-qadamlari": "Murojaat qadamlari",
+  "/huquqiy-asos": "Huquqiy asos",
+  "/huquqiy-asos/qonunlar": "Qonunlar",
+  "/huquqiy-asos/ichki-hujjatlar": "Ichki hujjatlar",
+  "/huquqiy-asos/davlat-ramzlari": "Davlat ramzlari",
+  "/huquqiy-asos/akkreditatsiya": "Akkreditatsiya",
+  "/savol-javoblar": "Savol-javoblar",
+  "/interfaol-xizmatlar/onlayn-murojaat": "Onlayn murojaat yuborish",
+  "/interfaol-xizmatlar/murojaat-holati": "Murojaat holatini tekshirish",
+  "/interfaol-xizmatlar/qabulga-yozilish": "Qabulga yozilish",
+  "/boglanish": "Bog'lanish",
+};
+
+function PageTitle() {
+  const { pathname } = useLocation();
+  const base =
+    "Andijon Forensic — Respublika Sud Tibbiy Ekspertiza Ilmiy-Amaliy Markazi Andijon Filiali";
+
+  useEffect(() => {
+    const match = pageTitles[pathname] || (pathname.startsWith("/yangiliklar/") ? "Yangilik" : "");
+    document.title = match ? `${match} | ${base}` : base;
+  }, [pathname]);
+
+  return null;
+}
+
 function AppRoutes() {
   const location = useLocation();
 
@@ -109,8 +143,20 @@ export default function App() {
       <div className="sticky top-0 z-50 bg-[#13285A] pt-safe">
         <TopBar />
         <Navbar />
+        <div className="bg-gradient-to-r from-[#0b1c3f] via-[#13285A] to-[#0b1c3f] border-t border-white/10 overflow-hidden">
+          <div className="py-2 relative w-full">
+            <span
+              className="inline-flex whitespace-nowrap text-base sm:text-xl font-bold text-sky-200 items-center gap-2"
+              style={{ animation: "marquee-once 13s linear infinite" }}
+            >
+              <i className="fa-solid fa-star text-amber-300 text-xs"></i>
+              O'zbekiston Respublikasi Mustaqilligining 35 yilligi muborak bo'lsin! Yurtimiz osmoni hamisha musaffo, mustaqilligimiz abadiy bo'lsin!
+            </span>
+          </div>
+        </div>
       </div>
       <ScrollToTop />
+      <PageTitle />
       <main className="flex-1 pb-20 lg:pb-0">
         <AppRoutes />
       </main>
