@@ -150,7 +150,8 @@ export default function App() {
               style={{ animation: "marquee-once 20s linear infinite" }}
             >
     
-              O'zbekiston Respublikasi Mustaqilligining 35 yilligi muborak bo'lsin! Yurtimiz osmoni hamisha musaffo, mustaqilligimiz abadiy bo'lsin!
+              O'zbekiston Respublikasi Mustaqilligining 35 yilligi muborak bo'lsin! YAGONA VATAN, YAGONA XALQ BO‘LIB,
+YANGI HAYOT VA KELAJAK YARATAMIZ! Yurtimiz osmoni hamisha musaffo, mustaqilligimiz abadiy bo'lsin!
             </span>
           </div>
         </div>
