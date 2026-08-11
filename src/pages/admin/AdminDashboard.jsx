@@ -13,6 +13,7 @@ const MAX_VIDEO_MB = 50;
 function AppealsTab() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState(null);
 
   useEffect(() => {
     listAppeals().then((data) => {
@@ -22,12 +23,20 @@ function AppealsTab() {
   }, []);
 
   async function changeStatus(id, status) {
-    await updateAppealStatus(id, status);
-    setItems((list) => list.map((i) => (i.id === id ? { ...i, status } : i)));
+    if (updatingId) return;
+    setUpdatingId(id);
+    try {
+      await updateAppealStatus(id, status);
+      setItems((list) => list.map((i) => (i.id === id ? { ...i, status } : i)));
+    } finally {
+      setUpdatingId(null);
+    }
   }
 
   if (loading) return <p className="text-sm text-gray-400">Yuklanmoqda...</p>;
   if (!items.length) return <p className="text-sm text-gray-400">Murojaatlar yo'q</p>;
+
+  const isUpdating = (id) => updatingId === id;
 
   return (
     <div className="overflow-x-auto">
@@ -40,6 +49,7 @@ function AppealsTab() {
             <th className="p-3 text-left">Turi</th>
             <th className="p-3 text-left">Matn</th>
             <th className="p-3 text-left">Holat</th>
+            <th className="p-3 text-left">Amal</th>
           </tr>
         </thead>
         <tbody>
@@ -51,15 +61,57 @@ function AppealsTab() {
               <td className="p-3">{it.type}</td>
               <td className="p-3 max-w-xs truncate">{it.message}</td>
               <td className="p-3">
-                <select
-                  value={it.status}
-                  onChange={(e) => changeStatus(it.id, e.target.value)}
-                  className="border border-gray-200 rounded px-2 py-1 text-xs"
+                <span
+                  className={`inline-block text-xs font-semibold px-2 py-1 rounded-full ${
+                    it.status === "Qabul qilindi"
+                      ? "bg-green-100 text-green-700"
+                      : it.status === "Rad etildi"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-amber-100 text-amber-700"
+                  }`}
                 >
-                  {STATUS_OPTIONS.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
+                  {it.status}
+                </span>
+              </td>
+              <td className="p-3">
+                <div className="flex items-center gap-1.5 whitespace-nowrap">
+                  <button
+                    onClick={() => changeStatus(it.id, "Qabul qilindi")}
+                    disabled={isUpdating(it.id)}
+                    className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1.5 transition disabled:opacity-50 ${
+                      it.status === "Qabul qilindi"
+                        ? "bg-green-600 text-white"
+                        : "bg-green-50 text-green-700 hover:bg-green-600 hover:text-white"
+                    }`}
+                    title="Qabul qilingan deb tasdiqlash"
+                  >
+                    <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-check"}`}></i>
+                    Qabul
+                  </button>
+                  <button
+                    onClick={() => changeStatus(it.id, "Rad etildi")}
+                    disabled={isUpdating(it.id)}
+                    className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1.5 transition disabled:opacity-50 ${
+                      it.status === "Rad etildi"
+                        ? "bg-red-600 text-white"
+                        : "bg-red-50 text-red-700 hover:bg-red-600 hover:text-white"
+                    }`}
+                    title="Rad etilgan deb tasdiqlash"
+                  >
+                    <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-xmark"}`}></i>
+                    Rad
+                  </button>
+                  <select
+                    value={it.status}
+                    onChange={(e) => changeStatus(it.id, e.target.value)}
+                    disabled={isUpdating(it.id)}
+                    className="border border-gray-200 rounded px-2 py-1.5 text-xs disabled:opacity-50"
+                  >
+                    {STATUS_OPTIONS.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
               </td>
             </tr>
           ))}
