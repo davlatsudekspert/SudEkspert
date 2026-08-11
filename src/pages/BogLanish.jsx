@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendTelegramMessage } from "../lib/telegram";
+import { sendContactEmail } from "../lib/email";
 
 export default function BogLanish() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
@@ -31,6 +32,12 @@ export default function BogLanish() {
       await sendTelegramMessage(
         `<b>Bog'lanish formasi</b>\n──────────────\nIsm: <b>${form.name}</b>\nTelefon: <b>${form.phone}</b>\n${form.email ? `Email: ${form.email}\n` : ""}──────────────\nXabar: ${form.message}\n──────────────\nVaqt: ${new Date().toLocaleString("uz-UZ")}`
       );
+      sendContactEmail({
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+        message: form.message.trim(),
+      }).catch(() => {});
       setStatus({ type: "success", text: "Xabaringiz muvaffaqiyatli yuborildi. Tez orada bog'lanamiz!" });
       setForm({ name: "", phone: "", email: "", message: "" });
     } catch {

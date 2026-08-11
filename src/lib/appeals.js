@@ -8,7 +8,7 @@ export async function submitAppeal({ name, phone, type, message }) {
     phone,
     type,
     message,
-    status: "Qabul qilindi",
+    status: "Ko'rib chiqilmoqda",
   });
   if (error) throw error;
   return id;

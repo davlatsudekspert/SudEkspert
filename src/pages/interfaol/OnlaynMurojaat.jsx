@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendTelegramMessage } from "../../lib/telegram";
+import { sendAppealEmail } from "../../lib/email";
 import { submitAppeal } from "../../lib/appeals";
 import { downloadAppealReceipt } from "../../lib/receipt";
 
@@ -54,6 +55,12 @@ export default function OnlaynMurojaat() {
       sendTelegramMessage(
         `<b>Onlayn murojaat</b>\n──────────────\nMurojaat raqami: <b>${id}</b>\nIsm: <b>${form.name}</b>\nTelefon: <b>${form.phone}</b>\nMurojaat turi: ${form.type}\n──────────────\nMatn: ${form.message}\n──────────────\nVaqt: ${new Date().toLocaleString("uz-UZ")}`
       ).catch(() => {});
+      sendAppealEmail({
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        type: form.type,
+        message: form.message.trim(),
+      }).catch(() => {});
       downloadAppealReceipt({ id, ...form });
       setForm({ name: "", phone: "", type: MURQ_TURLARI[0], message: "" });
       setResult({ ok: true, id });
