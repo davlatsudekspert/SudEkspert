@@ -4,8 +4,6 @@ import { listAppeals, updateAppealStatus } from "../../lib/appeals";
 import { loadNews, addNews, deleteNews } from "../../data/newsStore";
 import AdminLogin from "./AdminLogin";
 
-const STATUS_OPTIONS = ["Qabul qilindi", "Ko'rib chiqilmoqda", "Bajarildi", "Rad etildi"];
-
 const MAX_IMAGE_MB = 5;
 const MAX_IMAGES = 3;
 const MAX_VIDEO_MB = 50;
@@ -89,6 +87,32 @@ function AppealsTab() {
                     Qabul
                   </button>
                   <button
+                    onClick={() => changeStatus(it.id, "Ko'rib chiqilmoqda")}
+                    disabled={isUpdating(it.id)}
+                    className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1.5 transition disabled:opacity-50 ${
+                      it.status === "Ko'rib chiqilmoqda"
+                        ? "bg-amber-500 text-white"
+                        : "bg-amber-50 text-amber-700 hover:bg-amber-500 hover:text-white"
+                    }`}
+                    title="Ko'rib chiqilmoqda deb belgilash"
+                  >
+                    <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-eye"}`}></i>
+                    Ko'rib chiqilmoqda
+                  </button>
+                  <button
+                    onClick={() => changeStatus(it.id, "Bajarildi")}
+                    disabled={isUpdating(it.id)}
+                    className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1.5 transition disabled:opacity-50 ${
+                      it.status === "Bajarildi"
+                        ? "bg-blue-600 text-white"
+                        : "bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white"
+                    }`}
+                    title="Bajarilgan deb belgilash"
+                  >
+                    <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-circle-check"}`}></i>
+                    Bajarildi
+                  </button>
+                  <button
                     onClick={() => changeStatus(it.id, "Rad etildi")}
                     disabled={isUpdating(it.id)}
                     className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1.5 transition disabled:opacity-50 ${
@@ -101,16 +125,6 @@ function AppealsTab() {
                     <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-xmark"}`}></i>
                     Rad
                   </button>
-                  <select
-                    value={it.status}
-                    onChange={(e) => changeStatus(it.id, e.target.value)}
-                    disabled={isUpdating(it.id)}
-                    className="border border-gray-200 rounded px-2 py-1.5 text-xs disabled:opacity-50"
-                  >
-                    {STATUS_OPTIONS.map((s) => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
                 </div>
               </td>
             </tr>
