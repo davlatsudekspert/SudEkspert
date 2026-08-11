@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo.jpg";
+import SiteSearch from "./SiteSearch";
 
 const simpleLinks = [
   { label: "ASOSIY", to: "/" },
@@ -117,17 +118,17 @@ export default function Navbar() {
             <Link
               to="/"
               aria-label="Bosh sahifa"
-              className="px-6 py-4 text-white border-r border-white/10 hover:bg-white/10 transition"
+              className="px-3 py-4 text-white border-r border-white/10 hover:bg-white/10 transition flex-shrink-0"
             >
               <i className="fa-solid fa-house"></i>
             </Link>
-            <div className="flex flex-wrap">
+            <div className="flex flex-nowrap items-stretch">
               {simpleLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
                   onMouseEnter={() => setActiveMenu(null)}
-                  className={`px-5 py-4 text-sm font-semibold tracking-wide transition ${
+                  className={`px-2 py-4 text-xs font-semibold tracking-wide whitespace-nowrap transition ${
                     isActive(link.to)
                       ? "text-white bg-white/10"
                       : "text-white/80 hover:text-white hover:bg-white/5"
@@ -142,7 +143,7 @@ export default function Navbar() {
                   to={menu.to}
                   onMouseEnter={() => openMenu(key)}
                   onClick={(e) => toggleMenu(key, e)}
-                  className={`px-5 py-4 text-sm font-semibold tracking-wide transition cursor-pointer ${
+                  className={`px-2 py-4 text-xs font-semibold tracking-wide whitespace-nowrap transition cursor-pointer ${
                     activeMenu === key || isActive(menu.to)
                       ? "text-white bg-white/10"
                       : "text-white/80 hover:text-white hover:bg-white/5"
@@ -150,12 +151,15 @@ export default function Navbar() {
                 >
                   {menu.label}
                   <i
-                    className={`fa-solid fa-chevron-down ml-2 text-[10px] transition-transform duration-300 ${
+                    className={`fa-solid fa-chevron-down ml-1 text-[10px] transition-transform duration-300 ${
                       activeMenu === key ? "rotate-180" : ""
                     }`}
                   ></i>
                 </Link>
               ))}
+            </div>
+            <div className="ml-auto pr-3">
+              <SiteSearch />
             </div>
           </div>
 

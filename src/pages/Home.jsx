@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import buildingImg from "../assets/building.jpg";
 import badge35 from "../assets/mustaqillik-35.png";
 import { loadNews } from "../data/newsStore";
+import Stats from "../components/Stats";
+import SeoHead from "../components/SeoHead";
 
 export default function Home() {
   const [news, setNews] = useState([]);
@@ -16,22 +18,25 @@ export default function Home() {
 
   return (
     <div>
+      <SeoHead description="Respublika sud tibbiy ekspertiza ilmiy-amaliy markazi Andijon filiali — sud-tibbiy ekspertiza xizmatlari, yangiliklar va onlayn murojaat." />
       <div
         className="relative min-h-[340px] md:h-[440px] flex items-center overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${buildingImg})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b1c3f]/75 via-[#0b1c3f]/55 to-[#0b1c3f]/85"></div>
-        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full flex flex-col md:flex-row items-center justify-around md:justify-between gap-9npm ">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-10 w-full flex flex-col md:flex-row items-center justify-around md:justify-between gap-9">
           <h1 className="ml-0 md:ml-[60px] lg:ml-[100px] text-center md:text-left text-2xl sm:text-2xl md:text-[43px] font-extrabold text-blue-200 max-w-2xl leading-tight uppercase">
             Adolat, xolislik va ilmiylik — faoliyatimiz mezonidir
           </h1>
           <img
             src={badge35}
             alt="O'zbekiston Mustaqilligining 35 yilligi"
-            className="w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-100 lg:h-100 object-contain drop-shadow-2xl shrink-0 md:-mr-2 rotate-[2deg]"
+            className="w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain drop-shadow-2xl shrink-0 md:-mr-2 rotate-[2deg]"
           />
         </div>
       </div>
+
+      <Stats />
 
       <div className="max-w-7xl mx-auto px-4 md:px-10 pt-12 pb-16">
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">

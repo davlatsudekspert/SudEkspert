@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendTelegramMessage } from "../../lib/telegram";
+import { submitAppeal } from "../../lib/appeals";
+import { downloadAppealReceipt } from "../../lib/receipt";
 
 const MURQ_TURLARI = [
   "Savol",
@@ -10,8 +12,6 @@ const MURQ_TURLARI = [
   "Pullik xizmat",
   "Boshqa",
 ];
-
-const STORAGE_KEY = "murojaatlar";
 
 export default function OnlaynMurojaat() {
   const [form, setForm] = useState({
@@ -43,28 +43,18 @@ export default function OnlaynMurojaat() {
     setResult(null);
     if (!validate()) return;
 
-    const id = `MU-${Date.now().toString().slice(-6)}`;
-    const item = {
-      id,
-      name: form.name.trim(),
-      phone: form.phone.trim(),
-      type: form.type,
-      message: form.message.trim(),
-      date: new Date().toLocaleDateString("uz-UZ", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }),
-      status: "Qabul qilindi",
-    };
-
     setSending(true);
     try {
-      await sendTelegramMessage(
+      const id = await submitAppeal({
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        type: form.type,
+        message: form.message.trim(),
+      });
+      sendTelegramMessage(
         `<b>Onlayn murojaat</b>\n──────────────\nMurojaat raqami: <b>${id}</b>\nIsm: <b>${form.name}</b>\nTelefon: <b>${form.phone}</b>\nMurojaat turi: ${form.type}\n──────────────\nMatn: ${form.message}\n──────────────\nVaqt: ${new Date().toLocaleString("uz-UZ")}`
-      );
-      const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...list, item]));
+      ).catch(() => {});
+      downloadAppealReceipt({ id, ...form });
       setForm({ name: "", phone: "", type: MURQ_TURLARI[0], message: "" });
       setResult({ ok: true, id });
     } catch {

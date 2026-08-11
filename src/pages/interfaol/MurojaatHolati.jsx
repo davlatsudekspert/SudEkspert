@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-const STORAGE_KEY = "murojaatlar";
+import { checkAppealStatus } from "../../lib/appeals";
 
 export default function MurojaatHolati() {
   const [value, setValue] = useState("");
@@ -9,7 +8,9 @@ export default function MurojaatHolati() {
   const [searched, setSearched] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const id = value.trim().toUpperCase();
     if (!id) {
@@ -17,10 +18,16 @@ export default function MurojaatHolati() {
       return;
     }
     setError("");
-    const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    const item = list.find((m) => m.id.toUpperCase() === id);
-    setFound(item || null);
-    setSearched(true);
+    setLoading(true);
+    try {
+      const item = await checkAppealStatus(id);
+      setFound(item || null);
+      setSearched(true);
+    } catch {
+      setError("Tekshirishda xatolik yuz berdi, qayta urining");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,9 +66,11 @@ export default function MurojaatHolati() {
         />
         <button
           type="submit"
-          className="bg-[#13285A] text-white rounded-lg px-8 py-3 text-sm font-semibold hover:opacity-90 active:scale-95 transition flex-shrink-0"
+          disabled={loading}
+          className="bg-[#13285A] text-white rounded-lg px-8 py-3 text-sm font-semibold hover:opacity-90 active:scale-95 transition flex-shrink-0 disabled:opacity-50"
         >
-          <i className="fa-solid fa-magnifying-glass mr-2"></i>Tekshirish
+          <i className={`fa-solid ${loading ? "fa-spinner fa-spin" : "fa-magnifying-glass"} mr-2`}></i>
+          {loading ? "Tekshirilmoqda..." : "Tekshirish"}
         </button>
       </form>
       {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
@@ -86,7 +95,7 @@ export default function MurojaatHolati() {
                 </div>
                 <div className="border border-green-100 bg-white rounded-lg p-4">
                   <p className="text-xs text-gray-400 mb-1">Yuborilgan sana</p>
-                  <p className="font-semibold text-gray-800">{found.date}</p>
+                  <p className="font-semibold text-gray-800">{new Date(found.created_at).toLocaleDateString("uz-UZ")}</p>
                 </div>
                 <div className="border border-green-100 bg-white rounded-lg p-4">
                   <p className="text-xs text-gray-400 mb-1">Holat</p>

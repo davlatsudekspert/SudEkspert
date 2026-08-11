@@ -1,0 +1,109 @@
+SUD-EKSPERTIZA SAYTIGA QO'SHILGAN O'ZGARISHLAR
+=================================================
+
+1. XAVFSIZLIK TUZATILDI
+------------------------
+- src/lib/supabase.js va src/lib/telegram.js fayllaridagi maxfiy
+  kalitlar (Supabase key, Telegram bot token) koddan olib
+  tashlandi — endi FAQAT .env fayldan o'qiladi.
+- .env.example fayli qo'shildi — qaysi o'zgaruvchilar kerakligini
+  ko'rsatadi.
+- MUHIM: eski token allaqachon kodda ochiq turgan edi. Shu sababli
+  Telegram bot tokenini @BotFather orqali /revoke qilib, yangisini
+  olishingizni tavsiya qilaman (eskisi kimdir tomonidan ko'rilgan
+  bo'lishi mumkin).
+
+2. IKKITA YANGILIKLAR TIZIMI BIRLASHTIRILDI
+---------------------------------------------
+- Ishlatilmayotgan src/data/newsApi.js o'chirildi.
+- Faqat Supabase asosidagi newsStore.js qoldirildi.
+
+3. MUROJAAT TIZIMI HAQIQIY BAZAGA ULANDI
+-------------------------------------------
+- Yangi fayl: src/lib/appeals.js — murojaat yuborish, holatini
+  tekshirish, ro'yxatni olish va holatni yangilash funksiyalari.
+- OnlaynMurojaat.jsx va MurojaatHolati.jsx endi localStorage
+  o'rniga Supabase'dagi "murojaatlar" jadvalidan foydalanadi —
+  ya'ni istalgan qurilmadan holatni tekshirish mumkin bo'ladi.
+- supabase/murojaatlar.sql — jadvalni yaratish uchun tayyor SQL
+  kodi (Supabase dashboard > SQL Editor'ga joylashtiring va Run
+  bosing).
+
+4. PDF TASDIQNOMA
+-------------------
+- Murojaat yuborilgach, avtomatik PDF tasdiqnoma yuklab olinadi
+  (src/lib/receipt.js, jsPDF kutubxonasi orqali).
+
+5. QIDIRUV FUNKSIYASI
+------------------------
+- src/components/SiteSearch.jsx — navbar'ga qo'shilgan, sayt
+  bo'ylab barcha sahifalarni qidirish imkonini beradi.
+
+6. STATISTIKA BLOKI
+----------------------
+- src/components/Stats.jsx — bosh sahifada "65+ yillik tajriba"
+  kabi raqamli ko'rsatkichlar bloki qo'shildi. Raqamlarni o'zingiz
+  xohlagancha o'zgartirishingiz mumkin.
+
+7. ADMIN PANEL
+-----------------
+- /admin sahifasi qo'shildi (src/pages/admin/).
+- Kirish uchun Supabase Authentication orqali haqiqiy login
+  talab qilinadi (parol .env'da emas, Supabase serverida
+  tekshiriladi — xavfsizroq).
+- Admin panelda: barcha murojaatlarni ko'rish va holatini
+  o'zgartirish, yangilik qo'shish/o'chirish mumkin.
+- Admin foydalanuvchi yaratish uchun: Supabase dashboard >
+  Authentication > Users > "Add user" tugmasidan foydalaning.
+
+8. SEO
+-------
+- react-helmet-async o'rnatildi, har sahifaga alohida
+  title/description qo'yish imkoniyati qo'shildi
+  (src/components/SeoHead.jsx). Hozircha bosh sahifada
+  ishlatilgan — qolgan sahifalarga xuddi shunday qo'shishingiz
+  mumkin: sahifa boshiga <SeoHead description="..." /> qo'yish
+  kifoya.
+
+9. RASM OPTIMIZATSIYASI
+-------------------------
+- building.jpg fayli 1.9MB dan 403KB gacha siqildi — sayt tezroq
+  ochiladi.
+
+10. NAVBAR BIR QATORGA KELTIRILDI
+----------------------------------
+- Desktop navbarda havolalar endi bitta qatorda chiqadi
+  (flex-wrap olib tashlandi, whitespace-nowrap qo'shildi).
+- Havola o'lchamlari ixchamlashtirildi (text-xs, kichikroq padding),
+  qidiruv maydoni kichraytirildi.
+
+11. YANGILIK QO'SHISH ADMIN PANELGA O'TKAZILDI
+------------------------------------------------
+- /yangiliklar sahifasidan "Yangilik qo'shish" tugmasi, PIN kod
+  oynasi va yangilikni boshqarish/oychirish oynalari olib tashlandi —
+  sahifa endi faqat yangiliklarni ko'rsatadi.
+- Admin panel (src/pages/admin/AdminDashboard.jsx) "Yangiliklar"
+  bo'limiga to'liq yangilik qo'shish formasi kiritildi: rasm (3 tagacha),
+  video (ixtiyoriy), sarlavha, qisqa tavsif, to'liq matn va sana.
+- Yangiliklarni o'chirish ham endi faqat admin panelda amalga oshiriladi.
+
+QOLGAN QADAMLAR (SIZ BAJARISHINGIZ KERAK)
+============================================
+1. .env faylida VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY,
+   VITE_TELEGRAM_BOT_TOKEN, VITE_TELEGRAM_CHAT_ID qiymatlarini
+   to'ldiring (avvalgi qiymatlaringiz saqlanib qolgan, faqat
+   Telegram tokenini yangilashni unutmang).
+2. Supabase dashboard > SQL Editor'da supabase/murojaatlar.sql
+   faylidagi kodni ishga tushiring (jadval yaratish uchun).
+3. Supabase dashboard > Authentication > Users bo'limidan o'zingiz
+   uchun admin email+parol yarating — shu bilan /admin sahifasiga
+   kira olasiz.
+4. npm install (yangi kutubxonalar: jspdf, react-helmet-async)
+5. npm run dev — sinab ko'ring.
+
+QO'SHILMAGAN (KEYINGI BOSQICH UCHUN)
+========================================
+- Ko'p tillilik (RU/EN) — katta hajmli tarjima ishi talab qiladi,
+  alohida so'rov sifatida qilib beraman.
+- SMS orqali status xabari — Eskiz.uz kabi xizmatdan hisob va API
+  kaliti kerak bo'ladi.

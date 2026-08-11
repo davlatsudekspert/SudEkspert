@@ -12,6 +12,7 @@ import YangilikTafsilotlari from "./pages/YangilikTafsilotlari";
 import PullikXizmatlar from "./pages/PullikXizmatlar";
 import HuquqiyAsos from "./pages/HuquqiyAsos";
 import BogLanish from "./pages/BogLanish";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 import EkspertizaTurlari from "./pages/pullik/EkspertizaTurlari";
 import TolovTartibi from "./pages/pullik/TolovTartibi";
@@ -113,6 +114,7 @@ function AppRoutes() {
         <Route path="/interfaol-xizmatlar/murojaat-holati" element={<MurojaatHolati />} />
         <Route path="/interfaol-xizmatlar/qabulga-yozilish" element={<QabulgaYozilish />} />
         <Route path="/boglanish" element={<BogLanish />} />
+        <Route path="/admin" element={<AdminDashboard />} />
 
         <Route path="/tuzilma/tashkiliy-uslubiy-bolim" element={<TashkiliyUslubiyBolim />} />
         <Route path="/tuzilma/sud-ambulatoriya-bolimi" element={<SudAmbulatoriyaBolimi />} />
