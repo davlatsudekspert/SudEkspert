@@ -37,7 +37,7 @@ export default function BogLanish() {
         phone: form.phone.trim(),
         email: form.email.trim(),
         message: form.message.trim(),
-      }).catch(() => {});
+      }).catch((err) => console.error("EmailJS bog'lanish xatosi:", err));
       setStatus({ type: "success", text: "Xabaringiz muvaffaqiyatli yuborildi. Tez orada bog'lanamiz!" });
       setForm({ name: "", phone: "", email: "", message: "" });
     } catch {

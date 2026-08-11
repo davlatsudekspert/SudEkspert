@@ -60,7 +60,7 @@ export default function OnlaynMurojaat() {
         phone: form.phone.trim(),
         type: form.type,
         message: form.message.trim(),
-      }).catch(() => {});
+      }).catch((err) => console.error("EmailJS murojaat xatosi:", err));
       downloadAppealReceipt({ id, ...form });
       setForm({ name: "", phone: "", type: MURQ_TURLARI[0], message: "" });
       setResult({ ok: true, id });
