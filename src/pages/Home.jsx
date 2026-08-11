@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import buildingImg from "../assets/building.jpg";
 import badge35 from "../assets/mustaqillik-35.png";
 import { loadNews } from "../data/newsStore";
-import Stats from "../components/Stats";
 import SeoHead from "../components/SeoHead";
 
 export default function Home() {
@@ -35,8 +34,6 @@ export default function Home() {
           />
         </div>
       </div>
-
-      <Stats />
 
       <div className="max-w-7xl mx-auto px-4 md:px-10 pt-12 pb-16">
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
