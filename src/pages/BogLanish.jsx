@@ -18,7 +18,8 @@ export default function BogLanish() {
     if (!form.name.trim()) next.name = "Ism kiritilishi shart";
     if (!form.phone.trim()) next.phone = "Telefon raqami kiritilishi shart";
     if (!form.message.trim()) next.message = "Xabar kiritilishi shart";
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "Email manzili noto'g'ri";
+    if (!form.email.trim()) next.email = "Email kiritilishi shart";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "Email manzili noto'g'ri";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -112,7 +113,8 @@ export default function BogLanish() {
             <input
               type="email"
               name="email"
-              placeholder="Email (ixtiyoriy)"
+              placeholder="Email manzilingiz"
+              required
               value={form.email}
               onChange={handleChange}
               className={`${inputClass("email")} w-full`}
