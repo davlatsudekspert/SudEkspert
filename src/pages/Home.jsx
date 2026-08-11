@@ -62,6 +62,7 @@ export default function Home() {
                           <img
                             src={item.image}
                             alt={item.title}
+                            loading="lazy"
                             className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
