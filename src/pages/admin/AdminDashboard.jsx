@@ -63,8 +63,8 @@ function AppealsTab() {
                   className={`inline-block text-xs font-semibold px-2 py-1 rounded-full ${
                     it.status === "Qabul qilindi"
                       ? "bg-green-100 text-green-700"
-                      : it.status === "Rad etildi"
-                        ? "bg-red-100 text-red-700"
+                      : it.status === "Bajarildi"
+                        ? "bg-blue-100 text-blue-700"
                         : "bg-amber-100 text-amber-700"
                   }`}
                 >
@@ -111,19 +111,6 @@ function AppealsTab() {
                   >
                     <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-circle-check"}`}></i>
                     Bajarildi
-                  </button>
-                  <button
-                    onClick={() => changeStatus(it.id, "Rad etildi")}
-                    disabled={isUpdating(it.id)}
-                    className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1.5 transition disabled:opacity-50 ${
-                      it.status === "Rad etildi"
-                        ? "bg-red-600 text-white"
-                        : "bg-red-50 text-red-700 hover:bg-red-600 hover:text-white"
-                    }`}
-                    title="Rad etilgan deb tasdiqlash"
-                  >
-                    <i className={`fa-solid ${isUpdating(it.id) ? "fa-spinner fa-spin" : "fa-xmark"}`}></i>
-                    Rad
                   </button>
                 </div>
               </td>

@@ -61,7 +61,7 @@ export default function OnlaynMurojaat() {
         type: form.type,
         message: form.message.trim(),
       }).catch((err) => console.error("EmailJS murojaat xatosi:", err));
-      downloadAppealReceipt({ id, ...form });
+      downloadAppealReceipt({ id, status: "Ko'rib chiqilmoqda", ...form });
       setForm({ name: "", phone: "", type: MURQ_TURLARI[0], message: "" });
       setResult({ ok: true, id });
     } catch {
