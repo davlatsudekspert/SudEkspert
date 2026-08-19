@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HuquqiyAsos() {
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-10 py-16">
@@ -42,6 +44,26 @@ export default function HuquqiyAsos() {
               <p className="font-semibold text-gray-900 mb-1">Ekspertiza tayinlash tartibi</p>
               <p className="text-sm text-gray-500">Kimlar, qanday tartibda va qancha muddatda ekspertiza tayinlashi mumkinligi haqida ma'lumot.</p>
             </div>
+          </div>
+        </div>
+        <div>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-full bg-blue-700 text-white flex items-center justify-center">
+              <i className="fa-solid fa-file-lines"></i>
+            </div>
+            <h2 className="text-xl font-bold text-blue-900">Buyruqlar va shakllar</h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link
+              to="/huquqiy-asos/buyruqlar"
+              className="border border-blue-100 rounded-lg p-5 bg-white shadow-sm hover:border-blue-400 hover:bg-blue-50 transition flex items-center justify-between gap-4"
+            >
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">Tibbiy hujjatlar va birlamchi shakllar to'plami</p>
+                <p className="text-sm text-gray-500">Markaz tomonidan qo'llaniladigan barcha tibbiy hujjatlar va birlamchi shakllar.</p>
+              </div>
+              <i className="fa-solid fa-arrow-right text-blue-400 flex-shrink-0"></i>
+            </Link>
           </div>
         </div>
       </div>

@@ -29,6 +29,7 @@ const hoverMenus = {
       { title: "Ichki hujjatlar", desc: "Markaz nizomi va ekspertiza tayinlash tartibi", to: "/huquqiy-asos/ichki-hujjatlar" },
       { title: "Davlat ramzlari", desc: "Madhiya, Gerb, Bayroq", to: "/huquqiy-asos/davlat-ramzlari" },
       { title: "Akkreditatsiya", desc: "Akkreditatsiya bo'yicha ma'lumot", to: "/huquqiy-asos/akkreditatsiya" },
+      { title: "Buyruqlar", desc: "Tibbiy hujjatlar va birlamchi shakllar to'plami", to: "/huquqiy-asos/buyruqlar" },
     ],
   },
   interfaol: {

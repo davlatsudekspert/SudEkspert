@@ -12,6 +12,7 @@ export const SEARCH_INDEX = [
   { title: "Ichki hujjatlar", path: "/huquqiy-asos/ichki-hujjatlar" },
   { title: "Davlat ramzlari", path: "/huquqiy-asos/davlat-ramzlari" },
   { title: "Akkreditatsiya", path: "/huquqiy-asos/akkreditatsiya" },
+  { title: "Buyruqlar", path: "/huquqiy-asos/buyruqlar" },
   { title: "Savol-javoblar", path: "/savol-javoblar" },
   { title: "Onlayn murojaat yuborish", path: "/interfaol-xizmatlar/onlayn-murojaat" },
   { title: "Murojaat holatini tekshirish", path: "/interfaol-xizmatlar/murojaat-holati" },

@@ -21,6 +21,7 @@ import Qonunlar from "./pages/huquqiy/Qonunlar";
 import IchkiHujjatlar from "./pages/huquqiy/IchkiHujjatlar";
 import DavlatRamzlari from "./pages/huquqiy/DavlatRamzlari";
 import Akkreditatsiya from "./pages/huquqiy/Akkreditatsiya";
+import Buyruqlar from "./pages/huquqiy/Buyruqlar";
 import SavolJavoblar from "./pages/SavolJavoblar";
 import OnlaynMurojaat from "./pages/interfaol/OnlaynMurojaat";
 import MurojaatHolati from "./pages/interfaol/MurojaatHolati";
@@ -69,6 +70,7 @@ const pageTitles = {
   "/huquqiy-asos/ichki-hujjatlar": "Ichki hujjatlar",
   "/huquqiy-asos/davlat-ramzlari": "Davlat ramzlari",
   "/huquqiy-asos/akkreditatsiya": "Akkreditatsiya",
+  "/huquqiy-asos/buyruqlar": "Buyruqlar",
   "/savol-javoblar": "Savol-javoblar",
   "/interfaol-xizmatlar/onlayn-murojaat": "Onlayn murojaat yuborish",
   "/interfaol-xizmatlar/murojaat-holati": "Murojaat holatini tekshirish",
@@ -109,6 +111,7 @@ function AppRoutes() {
         <Route path="/huquqiy-asos/ichki-hujjatlar" element={<IchkiHujjatlar />} />
         <Route path="/huquqiy-asos/davlat-ramzlari" element={<DavlatRamzlari />} />
         <Route path="/huquqiy-asos/akkreditatsiya" element={<Akkreditatsiya />} />
+        <Route path="/huquqiy-asos/buyruqlar" element={<Buyruqlar />} />
         <Route path="/savol-javoblar" element={<SavolJavoblar />} />
         <Route path="/interfaol-xizmatlar/onlayn-murojaat" element={<OnlaynMurojaat />} />
         <Route path="/interfaol-xizmatlar/murojaat-holati" element={<MurojaatHolati />} />
